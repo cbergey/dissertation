@@ -1,9 +1,9 @@
 ---
-title             : "Dissertation Proposal"
-shorttitle        : "Dissertation Proposal"
+title             : "Remarkable features: Using descriptive contrast to convey and infer typicality"
+shorttitle        : "Descriptive contrast and typicality"
 
 author: 
-  - name          : "Claire Bergey"
+  - name          : "Claire Augusta Bergey"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
     address       : "5848 S. University Avenue, Chicago, IL 60637"
@@ -88,7 +88,7 @@ make_text_vars <- function(df, term_name, term_filter = NULL) {
 
 An utterance can say much more about the world than its literal interpretation might suggest. For instance, if you hear a colleague say "We should hire a female professor," you might infer something about the speaker's goals, the makeup of a department, or even the biases of a field—none of which is literally stated. These inferences depend on recognition that a speaker's intended meaning can differ from the literal meaning of their utterance, and the process of deriving this intended meaning is called pragmatics. General frameworks for understanding pragmatic inference posit that speakers tend to follow general principles of conversation—for instance, that they tend to be relevant, brief, and otherwise helpfully informative [@grice1975logic; @sperber1986relevance; @clark_pragmatics_1990]. When a speaker deviates from these principles, a listener can reason about the alternative utterances the speaker might have said and infer some intended meaning that goes beyond the literal meaning of their utterance.
 
-Pragmatic inference is also a potentially powerful mechanism for learning about new words and concepts. People can learn the meanings of words by tracking associations between word use and present objects alone [@yu2007], but reasoning about a speaker's intended meaning and not just the words they say may support more rapid and more accurate learning [@frank2009]. For example, @akhtar_role_1996 showed that young children can infer the meaning of a new word by using the principle that people tend to remark on things that are new and interesting to them. In this study, an experimenter leaves the room and a new toy emerges in her absence; once she comes back, the toy is familiar to the child but not to the experimenter. When she uses a novel name, "gazzer," the child can infer that the word refers to the toy that is novel to the experimenter, and not other toys the experimenter had already seen. Experiments with adults show that they too can use general principles of informativeness to infer a novel referent's name [@frank2014].
+Pragmatic inference is also a potentially powerful mechanism for learning about new words and concepts. People can learn the meanings of words by tracking associations between word use and present objects alone [@yu2007], but reasoning about a speaker's intended meaning--not just relating the words they say may to objects in the environment--may support more rapid and more accurate learning [@frank2009]. For example, @akhtar_role_1996 showed that young children can infer the meaning of a new word by using the principle that people tend to remark on things that are new and interesting to them. In this study, an experimenter leaves the room and a new toy emerges in her absence; once she comes back, the toy is familiar to the child but not to the experimenter. When she uses a novel name, "gazzer," the child can infer that the word refers to the toy that is novel to the experimenter, and not other toys the experimenter had already seen. Experiments with adults show that they too can use general principles of informativeness to infer a novel referent's name [@frank2014].
 
 One potential pragmatic tool for learning about referents is contrastive inference from description. To the extent that communicators strive to be minimal and informative, description should discriminate between the referent and some relevant contrasting set. This contrastive inference is fairly obvious from some types of description, such as some postnominal modifiers: "The door with the lock" clearly implies a contrasting door without one [@nietal]. The degree of contrast implied by more common descriptive forms, such as prenominal adjectives in English, is less clear: speakers do not always use prenominal adjectives minimally, often describing more than is needed to establish reference [@engelhardt_over-specified_2011; @mangold_informativeness_1988; @pechmann_incremental_1989]. Nevertheless, @sedivy_achieving_1999 showed that people can use these inferences to resolve referential ambiguity in familiar contexts. When asked to "Pick up the tall cup," people directed their attention more quickly to the target when a short cup was present, and did so in the period before they heard the word "cup." Because the speaker would not have needed to specify "tall" unless it was informative, listeners were able to use the adjective to direct their attention to a tall object with a shorter counterpart. Subsequent work using similar tasks has corroborated that people can use contrastive inferences to direct their attention among familiar referents [@sedivy_pragmatic_2003; @aparicio2016processing; @ryskin2019information].
 
@@ -96,22 +96,19 @@ But what if you didn't know the meaning of the key words in someone's utterance-
 
 In each of these cases, you would have used a pragmatic inference to learn something new. In the second case, you would have learned the name for a novel category "dax," and also something about the typical of size of daxes: most of them are shorter than the one you saw. In the first case, you would have resolved the referential ambiguity in the speaker's utterance. But would have you learned something about the typical size of daxes as well, beyond the daxes you observed? One possibility is that you would not: You can explain your friend's use of "tall" as being motivated by the need to distinguish between the two daxes in the room, and thus you should infer nothing about the other daxes in the world. If reference is the primary motivator of speakers' word choice, as implicitly assumed in much research [e.g., @pechmann_incremental_1989; @engelhardt_over-specified_2011; @arts_overspecification_2011], then people should draw no further inferences once the need for referential disambiguation can explain away a descriptor like "tall." On this reference-first view, establishing reference has priority in understanding the utterance, and any further inferences are blocked if the utterance is minimally informative with respect to reference. If, on the other hand, pragmatic reasoning weighs multiple goals simultaneously--here, reference and conveying typicality--people may integrate typicality as just one factor the speaker considers in using description, leading to graded inferences about the referent's identity and about its category's features.
 
-This dissertation will explore the ways in which people can learn about new words and categories from contrastive inference, with an eye toward understanding how contrastive inference could help children learn language. To set the stage for understanding how listeners use contrastive inference, we first need to establish that speakers use adjectives in informative ways. In Chapter 1, we investigate whether people tend to use adjectives to remark on the atypical features (e.g., "the purple carrot") rather than the typical features (e.g., "the [orange] carrot") of things. In a corpus study of caregivers' speech, we show that caregivers tend to mention atypical rather than typical features of things when speaking to their children. This holds across the wide age range we examined, from 14 months to 58 months old. In this chapter, we also examine whether it is possible to learn about the typical features of things using word co-occurrence within language alone, and without pragmatic inference. To do this, we examine whether two language models that use word co-occurrence to represent word meaning, word2vec and BERT, represent nouns as more similar to their typical adjectives than their atypical adjectives. We find that they do not: these models represent the relationship between nouns and adjectives poorly, likely because they use associative methods to represent word meaning while people are selectively mentioning atypical features. We discuss implications for children's word learning as well as for language modeling. 
+This dissertation will explore the ways in which people can learn about new words and categories from contrastive inference, with an eye toward understanding how contrastive inference could help children learn about language and the world it describes. To set the stage for understanding how listeners use contrastive inference, we first need to establish that speakers use adjectives in informative ways. In Chapter 1, we investigate whether people tend to use adjectives to remark on the atypical features (e.g., "the purple carrot") rather than the typical features (e.g., "the [orange] carrot") of things. First, we ask whether adults speaking to other adults tend to remark on atypical features rather than typical ones in a large naturalistic corpus, extending findings from reference game tasks [@mitchell_2013; @westerbeek_2015; @rubio-fernandez_how_2016]. Then, in a corpus study of caregivers' speech, we show that caregivers tend to mention atypical rather than typical features of things when speaking to their children. In this chapter, we also examine whether it is possible to learn about the typical features of things using word co-occurrence within language alone, and without pragmatic inference. To do this, we examine whether two language models that use word co-occurrence to represent word meaning, word2vec and BERT, represent nouns as more similar to their typical adjectives than their atypical adjectives. We find that they do not: these models represent the relationship between nouns and adjectives poorly, likely because they use associative methods to represent word meaning while people are selectively mentioning atypical features. We discuss implications for children's word learning as well as for language modeling. 
 
 In Chapter 2, we will establish that adults can use contrastive inferences both to learn the name of a new object and to learn its category's feature distribution. People use adjectives for multiple communicative purposes: in some cases, an adjective is needed to pick out one object among others in the immediate environment (e.g., "the tall cup" contrasts with a nearby shorter cup); in others, it marks atypicality (e.g., "the tall cup" is taller than most cups in general). In this chapter, we use three experiments with adults to show that people can use contrastive inferences both to establish reference and to learn about a new category's feature distribution.
 
-In Chapter 3, we will test whether children are able to use contrastive inferences to learn about the feature distributions of new categories.
+In Chapter 3, we will test whether children are able to use contrastive inferences to learn about the feature distributions of new categories. To do this, we will examine children's contrastive inferences about a type of category for which learning from language may be particularly important: social groups. We will test whether children make the inference that, for example, mentioning that a certain group member is smart, kind or strong implies that other group members are less likely to have those traits. We discuss the implications of this kind of inference for children's learning about social groups and the potential unintended consequences of remarking on individuals' traits in children's learning about broader social groups. 
 
 
-# Chapter 1
+# Chapter 1: People talk more about the atypical than the typical features of things
 
-```{r child = "chapter_1/ch1.Rmd"}
+```{r child = "sections/chapter_1/ch1.Rmd"}
 ```
 
-# Chapter 2
-
-```{r child = "sections/chapter_2/experiment1.Rmd"}
-```
+# Chapter 2: How adults use contrastive inference to learn about new categories
 
 ```{r child = "sections/chapter_2/experiment2.Rmd"}
 ```
@@ -119,7 +116,14 @@ In Chapter 3, we will test whether children are able to use contrastive inferenc
 ```{r child = "sections/chapter_2/experiment3.Rmd"}
 ```
 
+In Chapter 1, we established that people tend to mention atypical rather than typical features. In this chapter, we showed that adults make appropriate pragmatic inferences given how speakers describe: they infer that a mentioned feature is likely to be less typical of the mentioned category. However, the ability to learn about new categories using contrastive inference most obviously serves budding language learners---children. To fully appreciate the potential of these inferences to allow people to learn about the world, we must study their development, which we will turn to in Chapter 3.
 
+# Chapter 3: How children use contrastive inference to learn about new categories
+
+```{r child = "sections/chapter_3/ch3.Rmd"}
+```
+
+# Conclusion
 
 
 
@@ -127,7 +131,7 @@ In Chapter 3, we will test whether children are able to use contrastive inferenc
 
 This research was funded by James S. McDonnell Foundation Scholar Award in Understanding Human Cognition \#220020506 to Dan Yurovsky. The funding body had no involvement in the conceptualization, data collection, or analysis of this project.
 
-Each chapter in this proposal represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Dan Yurovsky; Chapter 2, Benjamin Morris and Dan Yurovsky; Chapter 3, Rachel King and Dan Yurovsky.
+Each chapter in this proposal represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Rachel King and Dan Yurovsky.
 
 Thank you to Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, and Ruthe Foushee for feedback on portions of this manuscript. Portions of this work were published in the proceedings of Experiments in Linguistic Meaning (2020) and the proceedings of the 42nd annual meeting of the Cognitive Science Society. The authors are grateful for feedback from reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the meeting of the Society for Research in Child Development, the Midwestern Cognitive Science Conference, and the Dubrovnik Conference on Cognitive Science.
 
