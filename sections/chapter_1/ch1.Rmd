@@ -1,4 +1,4 @@
-Children learn a tremendous amount about the structure of the world around them in just a few short years, from the rules that govern the movement of physical objects to the hierarchical structure of natural categories and even relational structures among social and cultural groups [@baillargeon1994; @rogers2004; @legare2016]. Where does the information driving this rapid acquisition come from? Undoubtedly, a sizeable component comes from direct experience observing and interacting with the world [@sloutsky2004; @stahl2015]. But another important source of information comes from the language people use to talk about the world [@landauer1997; @rhodes2012]. How similar is the information available from children's direct experience to the information available in the language children hear? 
+Children learn a tremendous amount about the structure of the world around them in just a few short years, from the rules that govern the movement of physical objects to the hierarchical structure of natural categories and even the relational structures among social and cultural groups [@baillargeon1994; @rogers2004; @legare2016]. Where does the information driving this rapid acquisition come from? Undoubtedly, a sizeable portion comes from direct experience observing and interacting with the world [@sloutsky2004; @stahl2015]. But another important source of information comes from the language people use to talk about the world [@landauer1997; @rhodes2012]. How similar is the information from children's direct experience to the information available in the language children hear? 
 
 Two lines of work suggest that they may be surprisingly similar. One compelling area of work is the comparison of semantic structures learned by congenitally blind children to those of their sighted peers. In several domains that would seem at first blush to rely heavily on visual information, such as verbs of visual perception (e.g., *look*, *see*), blind children and adults make semantic similarity judgments that mirror their sighted peers [@landau2009; @bedny2019]. A second line of evidence supporting the similarity of information in perception and language is the broad success of statistical models trained on language alone in approximating human judgments across a variety of domains [@landauer1997; @mikolov2013]. Even more compellingly, models trained on both language usage and perceptual features for some words can infer the perceptual features of linguistically related words entirely from the covariation of language and perception [@johns2012]. 
 <!-- @devlin2018 -->
@@ -25,12 +25,11 @@ tab <- tibble(utterance = c("especially with wooden shoes.",
 ```
 
 <!-- This is because people rarely use language merely to provide running comentary on the world around them. Instead, we use language to talk about things we find interesting--things that are surprising, exciting, or otherwise divergent from our conversational partners' expectations [@grice1975].  -->
-
 <!--When faced with an object that is typical of its kind, speakers overwhelmingly refer to that object with a bare noun- e.g., calling a banana that is yellow "a banana." But, when faced with an object that is atypical of its kind, speakers consistently produce description as well- e.g., calling a banana that is blue "a blue banana." This allows speakers to be as informative as needed, providing no description when it should be assumed (yellow banana) and providing information when it is unexpected (blue banana). These two empirical, lab-based phenomena demonstrate communicative pressures which, at scale, could mean naturalistic language is structured to contain much more description of what is atypical.-->
 
-If parents speak to children in this minimally informative way, children may be faced with input that emphasizes atypicality in relation to world knowledge they do not yet have. For things like carrots--which children learn about both from perception and from language--this issue may be resolved by integrating both sources of information. Likely almost all of the carrots children see are orange, and hearing an atypical exemplar noted as a "purple carrot" may make little difference in their inferences about the category of carrots more broadly. But for things to which they lack perceptual access--such as rare objects, unfamiliar social groups, or inaccessible features like the roundness of the Earth--much of what they learn must come from language [@harris2006]. If language predominantly notes atypical features rather than typical ones, children may overrepresent atypical features as they learn the way things in the world tend to be.
+If parents speak to children in this minimally informative way, children may be faced with input that emphasizes atypicality in relation to world knowledge they do not yet have. For things like carrots---which children learn about both from perception and from language---this issue may be resolved by integrating both sources of information. Likely almost all of the carrots children see are orange, and hearing an atypical exemplar noted as a "purple carrot" may make little difference in their inferences about the category of carrots more broadly. But for things to which they lack perceptual access---such as rare objects, unfamiliar social groups, or inaccessible features like the roundness of the Earth---much of what they learn must come from language [@harris2006]. If language predominantly notes atypical features rather than typical ones, children may overrepresent atypical features as they learn the way things in the world tend to be.
 
-On the other hand, parents may speak to children far differently from the way they speak to other adults. Parents' speech may reflect typical features of the world more veridically, or even emphasize typical features in order to teach children about the world. Parents alter their speech to children along a number of structural dimensions, using simpler syntax and more reduplications [@snow1972]. Their use of description may reflect similar alignment to children's growing knowledge.
+On the other hand, parents may speak to children differently from the way they speak to other adults. Parents' speech may reflect typical features of the world more veridically, or even emphasize typical features in order to teach children about the world. Parents alter their speech to children along a number of structural dimensions, using simpler syntax and more reduplications [@snow1972]. Their use of description may reflect similar alignment to children's abilities by emphasizing typical feature information children are still learning.
 
 We examine the typicality of adjectives in a large, diverse corpus of parent-child interactions recorded in children's homes to ask whether parents talking to their children tend to use adjectives predominantly to mark atypical features. We find that they do: Parents overwhelmingly choose to mention atypical rather than typical features. We also find that parents use adjectives differently over the course of children's development, noting typical features more often to younger children. We then ask whether the co-occurrence structure of language nonetheless captures typicality information by training vector space models on child-directed speech. We find that relatively little typical feature information is represented in these semantic spaces. 
 
@@ -51,7 +50,6 @@ From these utterances, we extracted all of the nouns (using human-coded part of 
 We selected from the corpus all 35,761 distinct utterances containing any of these nouns and any word tagged as an adjective. We considered for analysis all adjective-noun pairs that occurred in any utterance (e.g., utterances with one noun and three adjectives were coded as three pairs) for a total of 18,050 distinct pairs. This set contained a number of high-frequency idiomatic pairs whose typicality was difficult to classify (e.g., "good"--"job"; "little"--"bit"). To resolve this issue, we used human judgments of words' concreteness to identify and exclude candidate idioms [@brysbaert2014]. We retained for analysis only pairs in which both the adjective and noun were in the top 25% of the concreteness ratings (e.g., "dirty" -- "dish"; "green" -- "fish") restricting our set to 2,477.  Finally, human coders in the lab judged whether each pair was "incoherent or unrelated" and we excluded a final 576 pairs from the sample (e.g., incoherent pairs such as "flat" -- "honey").
 
 Thus, our final sample included 1,901 unique adjective-noun pairs drawn from 3,749 distinct utterances. The pairs were combinations of 637 distinct concrete nouns and 111 distinct concrete adjectives. We compiled these pairs and collected human judgments on Amazon Mechanical Turk for each pair, as described below. Table \ref{tab:utt_table} contains example utterances from the final set and typicality judgments from our human raters.
-
 
 ## Participants
 
@@ -92,10 +90,6 @@ type_data_by_session <- token_data %>%
            article, x1, x2, x3, x4, x5, mean_typ) %>%
   summarise(n = n())
 ```
-
-
-
-
 ```{r models}
 # old file without bert probs
 #model_judgments <- read_csv(here("data/all_judgments.csv"))
@@ -175,7 +169,6 @@ mean_kid_token <- kid_production %>%
 
 
 ```
-
 ```{r result-effects}
 token_estimate <- mean_token %>% pull(estimate)
 token_statistic <- mean_token %>% pull(statistic)
@@ -203,7 +196,6 @@ kid_token_statistic <- mean_kid_token %>% filter(term == "(Intercept)") %>%
 kid_token_p <- mean_kid_token %>% filter(term == "(Intercept)") %>%
   pull(p.value) %>% printp()
 ```
-
 
 ## Results
 
@@ -280,7 +272,6 @@ typical_statistic <- typical_token_lmer %>% filter(term == "log(age)") %>%
 typical_p <- typical_token_lmer %>% filter(term == "log(age)") %>% 
   pull(p.value) %>% printp()
 ```
-
 
 Returning to caregiver speech, while descriptions at every age tended to point out atypical features (as in adult-to-adult speech), this effect changed in strength over development. As predicted, an age effect added to the previous model was reliably negative, indicating that parents of older children are relatively more likely to focus on atypical features  ($\beta =$ `r token_development_estimate`, $t =$ `r token_development_statistic`, $p =$ `r token_development_p`). In line with the idea that caregivers adapt their speech to their children's knowledge, it seems that caregivers are more likely to provide description of typical features for their young children, compared with older children. As a second test of this idea, we defined adjectives as highly typical if Turkers judged them to be 'often', 'almost always', or 'always' true. We predicted whether each judgment was highly typical from a mixed-effects logistic regression with a fixed effect of age (log-scaled) and a random effect of noun. Age was a highly reliable predictor ($\beta =$ `r typical_effect`, 
 $t =$ `r typical_statistic`, $p =$ `r typical_p`). While children at all ages hear more talk about what is atypically true (Figure  \ref{fig:distribution-plot}), younger children hear relatively more talk about what is typically true than older children do (Figure \ref{fig:prototypical-plot}).
@@ -511,7 +502,6 @@ typicality_axis <- c("Low Typicality", "High Typicality")
 
 ```
 
-
 ## Method
 
 To test this possibility, we trained word2vec--a distributional semantics model--on the same corpus of child-directed speech used in our first set of analyses. Word2vec is a neural network model that learns to predict words from the contexts in which they appear. This leads word2vec to encode words that appear in similar contexts as similar to one another [@firth1957].
@@ -623,14 +613,6 @@ Of course, perceptual information from the world may simplify this problem. In m
 
 It is also possible that other cues from language and interaction provide young learners with clues to what is typical or atypical, and these cues are uncaptured by our measure of usage statistics. Caregivers may highlight when a feature is typical by using certain syntactic constructions, such as generics (e.g., "tomatoes are red"). Caregivers may also mark the atypicality of a feature, for example demonstrating surprise. Such cues from language and the interaction may provide key information in some cases; however, given the sheer frequency of atypical descriptors, it seems unlikely that they are consistently well-marked.
 
-<!-- Though perceptual information is undoubtedly useful in learning about the typical features of things, it remains to be explained how children learn what is typical when this perceptual information is scant, irrelevant, or incomplete. -->
-
-<!-- Given that the present work is limited to concrete concepts, we can only speculate about the information caregivers provide about abstract concepts. But,  -->
-
 Another possibility is that children expect language to be used informatively at a young age. Under this hypothesis, their language environment is not misleading at all, even without additional cues from caregivers. Children as young as two years old tend to use words to comment on what is new rather than what is known or assumed [@baker1988]. Children may therefore expect adjectives to comment on surprising features of objects. If young children expect adjectives to mark atypical features [@horowitz_childrens_2016], they can use description and the lack thereof to learn more about the world. We propose to investigate this question in Chapter 3.
-
-<!-- It is further possible that children are tracking more nuanced syntactic information, which could provide helpful cues to what is typical (e.g., adjectives used in a generic) -->
-
-<!--and may provide roughly informative speech themselves by age 5-6 [@nadig2002].  More naturalistic studies find that children at the one-word stage selectively imitate words that convey new information—that is, words that are informative with respect to what is obvious or assumed in the environment—when describing events (Greenfield & Zukow, 1978). -->
 
 Across our analyses, language is used with remarkable consistency: people talk about the atypical. Though parents might reasonably be broadly over-informative in order to teach their children about the world, this is not the case. This presents a potential puzzle for young learners who have limited world knowledge and limited pragmatic inferential abilities. Perceptual information and nascent pragmatic abilities may help fill in the gaps, but much remains to be explored to link these explanations to actual learning. Communication pressures are pervasive forces structuring the language children hear, and future work must disentangle whether children capitalize on them or are misled by them in learning about the world.
