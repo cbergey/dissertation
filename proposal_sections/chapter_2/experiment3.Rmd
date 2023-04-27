@@ -1,0 +1,247 @@
+# Experiment 2
+
+```{r e3-read-data}
+e3_data <- read_csv(here("data/exp3_turk_data.csv"), show_col_types = FALSE)
+
+# participants who have unbalanced numbers of trials in each condition
+e3_exclude <- e3_data %>% count(subid, utttype, searchtype) %>% filter(n == 2 | n == 3)
+
+e3_keep_subjs <- e3_data %>%
+  filter(searchtype == "colorcheck", chosetarget == TRUE, attncheckscore >= 6) %>%
+  filter(!(subid %in% e3_exclude$subid)) %>%
+  group_by(subid) %>%
+  count() %>%
+  filter(n == 4)
+
+e3_kept_n <- e3_keep_subjs %>% distinct(subid) %>% nrow()
+
+e3_excluded_n = e3_data %>% distinct(subid) %>% nrow() - e3_kept_n
+
+e3_model_data <- e3_data %>%
+  filter(subid %in% e3_keep_subjs$subid) %>%
+  filter(trialtype != 0) %>%
+  mutate(searchtype = factor(searchtype, levels = c("differentshapes", "contrast")))
+
+e3_subj_data <- e3_data %>%
+  filter(subid %in% e3_keep_subjs$subid) %>%
+  filter(trialtype != 0) %>%
+  mutate(searchtype = if_else(searchtype == "differentshapes",
+                                      "different", searchtype)) %>%
+  mutate(rtsearch = rtsearch - 6500) %>% # time before selections can be made
+  mutate(log_rt = log(rtsearch)) %>%
+  mutate(adjective = if_else(utttype == "adj", "adjective noun", utttype),
+         adjective = if_else(adjective == "noutt", "alien utterance", adjective),
+         adjective = if_else(adjective == "noadj", "noun", adjective),
+         adjective = factor(adjective, levels = c("noun", "adjective noun", "alien utterance")),
+         searchtype = factor(searchtype, levels = c("different", "contrast")),
+         condition = factor(condition, levels = c("color", "size")))
+
+e3_mean_data <- e3_subj_data %>%
+  group_by(searchtype, adjective, condition) %>%
+  tidyboot_mean(percentage)
+```
+
+```{r e3-lmer-models, eval = FALSE}
+e3_model <- lmer(percentage ~ condition * adjective * searchtype +
+                (adjective | subid),
+              control = lmerControl(optimizer = "bobyqa"),
+              data = e3_subj_data) %>%
+  tidy() %>%
+  filter(effect == "fixed")
+```
+
+
+In Experiments 1, we established that people can use contrastive inferences to make inferences about the feature distribution of a novel category. Additionally, we found that these two inferences do not seem to trade off substantially: even if an adjective is necessary to establish reference, people infer that it also marks atypicality. To strengthen our findings in a way that would allow us to better detect potential trade-offs between these two types of inference, in Experiment 2 we conducted a pre-registered replication of Experiment 1 with a larger sample of participants. In addition, we tested how people's prevalence judgments from utterances with and without an adjective compare to their null inference about feature prevalence by adding a control utterance condition: an alien utterance, which the participants could not understand. This also tests the model assumption we made in Experiment 1: that after seeing two exemplars of the target object with two values of the feature (e.g., one green and one blue), people's prevalence judgments would be around 50%. In addition to validating this model assumption, we more strongly tested the model here by comparing predictions from same model, with parameters inferred from the Experiment 1 data, to data from Experiment 2. Our pre-registration of the method, recruitment plan, exclusion criteria, and analyses can be found on the Open Science Framework: https://osf.io/s8gre .
+
+## Method
+
+### Participants.
+
+A pre-registered sample of 400 participants was recruited from Amazon Mechanical Turk. Half of the participants were assigned to a condition in which the critical feature was color (red, blue, purple, or green), and half of the participants were assigned to a condition in which the critical feature was size (small or big).
+
+### Stimuli & Procedure.
+
+The stimuli and procedure were identical to those of Experiment 2, with the following modifications. Two factors, utterance type and object context, were fully crossed within subjects. Object context had two levels: within-category contrast and between-category contrast. In the within-category context condition, Alien B possessed the target object and another object of the same shape, but with a different value of the critical feature (color or size). In the between-category contrast condition, Alien B possessed the target object and another object of a different shape, and with a different value of the critical feature. Thus, in the within-category contrast condition, an adjective is necessary to distinguish the referent; in the between-category contrast condition it is unnecessary but potentially helpful. There were three utterance types: adjective, no adjective, and alien utterance. In the two alien utterance trials, the aliens spoke using completely unfamiliar utterances (e.g., "Zem, noba bi yix blicket"). Participants were told in the task instructions that sometimes the aliens would talk in a completely alien language, and sometimes their language will be partly translated into English. To keep participants from making inferences about the content of the alien utterances using the utterance content of other trials, both alien language trials were first; other than this constraint, trial order was random. We manipulated the critical feature type (color or size) between subjects.
+
+After completing the study, participants were asked to select which of a set of alien words they had seen previously during the study. Four were words they had seen, and four were novel lure words. Participants were dropped from further analysis if they did not meet our pre-registered criteria of responding to at least 6 of these 8 correctly (above chance performance as indicated by a one-tailed binomial test at the $p = .05$ level) and answering all four color perception check questions correctly. Additionally, six participants were excluded because their trial conditions were not balanced due to an error in the run of the experiment. This resulted in excluding `r e3_excluded_n` participants, leaving `r e3_kept_n` for further analysis. In our pre-registration, we noted that we anticipated high exclusion rates, estimating that approximately 150 people per condition would be sufficient to test our hypotheses.
+
+## Results
+
+```{r e3-models}
+# all prereg'd models below
+e3_utt_model_no_alien <- e3_model_data %>%
+  filter(utttype != "noutt") %>%
+  mutate(utttype = factor(utttype, levels = c("noadj", "adj"))) %>%
+  lmer(percentage ~ utttype + (utttype|subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  mutate(p.value = printp(p.value))
+
+make_text_vars(e3_utt_model_no_alien, "e3_adj_no_alien", "utttypeadj")
+
+e3_utt_model <- e3_model_data %>%
+  mutate(utttype = factor(utttype, levels = c("noutt", "noadj", "adj"))) %>%
+  lmer(percentage ~ utttype + (utttype | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  mutate(p.value = printp(p.value))
+
+walk2(c("e3_utt_model_adj", "e3_utt_model_noadj"), 
+      c("utttypeadj", "utttypenoadj"), 
+      ~ make_text_vars(e3_utt_model, .x, .y))
+
+# model did not converge with maximal slopes
+e3_full_model <- e3_model_data %>%
+  mutate(utttype = factor(utttype, levels = c("noutt", "noadj", "adj"))) %>%
+  lmer(percentage ~ utttype * searchtype * condition + 
+         (utttype | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  select(-effect, -group) %>%
+  mutate(p.value = papaja::printp(p.value))
+
+walk2(c("e3_full_noadj", "e3_full_adj", "e3_full_size", "e3_full_contrast", "e3_full_adj_size",
+        "e3_full_noadj_contrast", "e3_full_adj_contrast"), 
+      c("utttypenoadj", "utttypeadj", "conditionsize", "searchtypecontrast", "utttypeadj:conditionsize",
+        "utttypenoadj:searchtypecontrast", "utttypeadj:searchtypecontrast"), 
+      ~ make_text_vars(e3_full_model, .x, .y))
+
+e3_full_model_no_alien <- e3_model_data %>%
+  filter(utttype != "noutt") %>%
+  mutate(utttype = factor(utttype, levels = c("noadj", "adj"))) %>%
+  lmer(percentage ~ utttype * searchtype * condition + 
+         (utttype | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  select(-effect, -group) %>%
+  mutate(p.value = papaja::printp(p.value))
+
+make_text_vars(e3_full_model_no_alien, "e3_noalien_adj", "utttypeadj")
+
+e3_all_adj_model <- e3_model_data %>%
+  filter(utttype == "adj") %>%
+  lmer(percentage ~ searchtype * condition + 
+         (1 | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  select(-effect, -group) %>%
+  mutate(p.value = papaja::printp(p.value))
+
+walk2(c("e3_all_adj_contrast"), 
+      c("searchtypecontrast"), 
+      ~ make_text_vars(e3_all_adj_model, .x, .y))
+
+```
+
+```{r extra-models, eval = FALSE}
+no_baseline_model <- e3_model_data %>%
+  filter(utttype != "noutt") %>%
+  lmer(percentage ~ utttype + searchtype  + condition + 
+         (utttype | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  select(-effect, -group) %>%
+  mutate(p.value = papaja::printp(p.value))
+
+size_only_model <- e3_model_data %>%
+  filter(condition == "size") %>%
+  mutate(utttype = factor(utttype, levels = c("noutt", "noadj", "adj"))) %>%
+  lmer(percentage ~ searchtype * utttype +  
+         (utttype | subid), data = .) %>%
+  tidy() %>%
+  filter(effect == "fixed") %>%
+  select(-effect, -group) %>%
+  mutate(p.value = papaja::printp(p.value))
+
+```
+
+We began by fitting a pre-registered maximum mixed-effects linear model with effects of utterance type (alien utterance, adjective, or no adjective; alien utterance as reference level), context type (within category or between category), and critical feature (color or size) as well as all interactions and random slopes of utterance type and context type nested within subject. Random effects were removed until the model converged, which resulted in a model with all fixed effects, all interactions and a random slope of utterance type by subject. The final model revealed a significant effect of the no adjective utterance type compared to the alien utterance type ($\beta =$ `r e3_full_noadj_estimate`, $t =$ `r e3_full_noadj_statistic`, $p =$ `r e3_full_noadj_p.value`) and no significant effect of the adjective utterance type compared to the alien utterance type ($\beta =$ `r e3_full_adj_estimate`, $t =$ `r e3_full_adj_statistic`, $p =$ `r e3_full_adj_p.value`). The effects of context type (within-category or between-category) and adjective type (color or size) were not significant ($\beta_{within} =$ `r e3_full_contrast_estimate`, $t_{within} =$ `r e3_full_contrast_statistic`, $p_{within} =$ `r e3_full_contrast_p.value`; $\beta_{size} =$ `r e3_full_size_estimate`, $t_{size} =$ `r e3_full_size_statistic`, $p_{size} =$ `r e3_full_size_p.value`). There were marginal interactions between the adjective utterance type and the size condition ($\beta =$ `r e3_full_adj_size_estimate`, $t =$ `r e3_full_adj_size_statistic`, $p =$ `r e3_full_adj_size_p.value`), the adjective utterance type and the within-category context ($\beta =$ `r e3_full_adj_contrast_estimate`, $t =$ `r e3_full_adj_contrast_statistic`, $p =$ `r e3_full_adj_contrast_p.value`), and the no adjective utterance type and the within-category context ($\beta =$ `r e3_full_noadj_contrast_estimate`, $t =$ `r e3_full_noadj_contrast_statistic`, $p =$ `r e3_full_noadj_contrast_p.value`). No other effects were significant or marginally significant. Thus, participants inferred that an object referred to in an intelligible utterance with no description was more typical of its category on the target feature than an object referred to with an alien utterance. Participants did not substantially adjust their inferences based on the object context. The marginal interactions between the within-category context and both the adjective and no adjective utterance types suggest that people might have judged the target feature as slightly more prevalent in the within-category context when intelligible utterances (with a bare noun or with an adjective) were used compared to the alien utterance. If people are discounting their atypicality inferences when the adjective is necessary for reference, we should expect them to have slightly higher typicality judgments in the within-category context when an adjective is used, and this marginal interaction suggests that this may be the case. However, since typicality judgments in the no adjective utterance type are also marginally greater in the within-category context, and because judgments in the alien utterance conditions (the reference category) also directionally move between the two context conditions, it is hard to interpret whether this interaction supports the idea that people are discounting their typicality judgments based on context.
+
+Given that interpretation of these results with respect to the alien utterance condition can be difficult, we pre-registered a version of the same full model excluding alien utterance trials with the no adjective utterance type as the reference level. This model revealed a significant effect of utterance type: participants' prevalence judgments were lower when an adjective was used than when it was not ($\beta =$ `r e3_noalien_adj_estimate`, $t =$ `r e3_noalien_adj_statistic`, $p =$ `r e3_noalien_adj_p.value`). No other effects were significant. This replicates the main effect of interest in Experiment 1: when an adjective is used in referring to the object, participants infer that the described feature is less typical of that object's category than when the feature goes unmentioned. It also shows that the possibility that people may discount their typicality judgments based on context (suggested by the marginal interaction described above) is not supported when we compare the adjective and no adjective utterance types directly. In the Supplemental Materials, we report two more pre-registered tests of the effect of utterance type alone on prevalence judgments whose results are consistent with the fuller models reported here.
+
+As in Experiment 1, our test of whether participants' inferences are modulated by context is potentially complicated by people making distinct inferences when an adjective is necessary but *not* used. Thus, we additionally tested whether participants' inferences varied by context among only utterances with an adjective by fitting a model with effects of context and adjective type and their interaction, as well as random slopes by subject (not pre-registered). Participants' inferences did not significantly differ by context ($\beta_{within} =$ `r e3_all_adj_contrast_estimate`, $t_{within} =$ `r e3_all_adj_contrast_statistic`, $p_{within} =$ `r e3_all_adj_contrast_p.value`). Thus, participants' inferences did not significantly differ between contexts, whether tested by the interaction between utterance type and contexts or by the effect of context among only utterances with an adjective.
+
+```{r e3-rsa, eval = FALSE}
+e3_null_inference <- webppl(program_file = 
+                                         here("webppl/e3_null.wppl"))
+write_csv(e3_null_inference, 
+          here("webppl/model_estimates/e3_null_estimates.csv"))
+```
+
+```{r load-e3-estimates}
+e3_null_inference <- 
+  read_csv(here("webppl/model_estimates/e3_null_estimates.csv"),
+           show_col_types = FALSE)
+```
+
+```{r e3-wppl-data}
+e3_wppl_null_data <- e3_null_inference %>%
+  pivot_wider(values_from = "value", names_from = "Parameter") %>%
+  mutate(p = as.numeric(p)) %>%
+  group_by(obj) %>%
+  summarise(p = 100 * mean(p)) %>%
+  filter(obj == "red toma") %>%
+  rename(empirical_stat = p) %>%
+  mutate(adjective = "alien utterance") %>%
+  select(-obj) %>%
+  expand_grid(condition = c("color", "size"),
+              searchtype = c("different", "contrast"))
+
+e3_wppl_data <- e2_wppl_data %>%
+  bind_rows(e3_wppl_null_data) %>%
+  filter(searchtype != "same") %>%
+   mutate(adjective = factor(adjective, levels = c("noun", "adjective noun", "alien utterance")),
+         searchtype = factor(searchtype, levels = c("different", "contrast")))
+```
+
+```{r e3-wppl-plot, fig.cap = "Participants' prevalence judgments in Experiment 2, with model predictions using the parameters estimated in Experiment 1 (horizontal lines)."}
+
+labels <- rasterGrob(png::readPNG(here("figs/e3_plot_labels.png")), interpolate = TRUE)
+
+plot <- ggplot(e3_mean_data %>% mutate(searchtype = factor(searchtype, levels = c("contrast", "different"))), 
+               aes(x = adjective, y = empirical_stat, 
+                         color = condition, fill = condition)) + 
+  facet_wrap(~ searchtype) +
+  ylab("Prevalence judgment") +
+  xlab("Utterance type") +
+  labs(color = "Adjective type") + 
+  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(.5)) + 
+  geom_crossbar(aes(ymin = empirical_stat, ymax = empirical_stat, y = empirical_stat),
+                position = position_dodge(.5), width = .5,
+           alpha = .5, size = .5, data = e3_wppl_data) + 
+  geom_hline(aes(yintercept = 50), linetype = "dashed") +
+  geom_dl(aes(label = condition, y = empirical_stat), 
+          position = position_dodge(.5),
+          method = list(dl.trans(x = x - 1), "last.points", cex=.7)) +
+  scale_color_ptol() +
+theme(
+    strip.background =element_rect(fill="transparent"),
+    panel.background = element_rect(fill = "transparent"), # bg of the panel
+    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+    panel.grid.major = element_blank(), # get rid of major grid
+    panel.grid.minor = element_blank(), # get rid of minor grid
+    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
+    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
+    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+)
+
+#ggsave(plot, filename = "e2_plot.png",  width = 8, height = 4, units = "in", dpi = 300, bg = "transparent")
+
+grid.arrange(labels, plot, nrow = 2,
+             widths = c(1,19),
+             heights = c(2,5),
+             layout_matrix = rbind(c(NA, 1),
+                                   c(2)))
+```
+
+## Model
+
+To validate the model we developed for Experiment 1, we compared its estimates using the previously fit parameters to the new data from Experiment 2. As shown in Figure \ref{fig:e3-wppl-plot}, the model predictions were well aligned with people's prevalence judgments. In addition, in Experiment 1, we fixed the model's prior beliefs about the prevalence of the target object's color or size to be centered at 50% because the model had seen one pseudo-exemplar of the target color/size, and one psuedo-exemplar of the non-target color/size. In Experiment 2, we aimed to estimate this prior  empirically in the alien utterance condition, reasoning that people could only use their prior to make a prevalence judgment (as we asked the model to do). In both the color and size conditions, people's judgments indeed varied around 50%, although in the color condition they were directionally lower. This small effect may arise from the fact that size varies on a scale with fewer nameable points (e.g., objects can be big, medium-sized or small) whereas color has many nameable alternatives (e.g., red, blue, green, etc.). Thus, the results of Experiment 2 confirm the modeling assumptions we made in estimating people's prior beliefs, and further validate the model we developed as a good candidate model for how people simultaneously draw inferences about speakers' intended referents and the typicality of these referents. That is, when people think about why a speaker chose their referring expression, they consider the context of not only present objects, but also the broader category to which the referent belongs.
+
+## Discussion
+
+In Experiment 2, we replicated the main finding of interest in Experiment 1: when a novel object's feature is described, people infer that the feature is rarer of its category than when it goes unmentioned. Again, this effect was consistent across both size and color adjectives, and people did not substantially adjust this inference based on how necessary the description was to distinguish among potential referents. We also added an alien language condition, in which the entire referring expression was unintelligible to participants, to probe people's priors on feature typicality. We found that in the alien language condition, people judged features to be roughly between the adjective utterance and no adjective utterance conditions, and significantly different from the no adjective utterance condition. In the alien language condition, people's prevalence judgments were roughly around our model's prevalence judgments (50%) after observing the objects on each trial and before any inferences about the utterance.
+
+The similarity of people's prevalence judgments in the alien language condition and the adjective condition raises the question: is this effect driven by an atypicality inference in the adjective conditions, or a *typicality* inference when the feature is unmentioned? Our results suggest that it is a bit of both. When someone mentions an object without extra description, the listener can infer that its features are likely more typical than their prior; when they use description, they can infer that its features are likely less typical. Because using an extra word--an adjective--is generally not thought of as the default way to refer to something, this effect is still best described as a contrastive inference of *atypicality* when people use description. However, the fact that people infer high typicality when an object is referred to without description suggests that, in some sense, there is no neutral way to refer: people will make broader inferences about a category from even simple mentions of an object.

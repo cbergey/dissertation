@@ -194,7 +194,7 @@ e3_wppl_data <- e2_wppl_data %>%
          searchtype = factor(searchtype, levels = c("different", "contrast")))
 ```
 
-```{r e3-wppl-plot, fig.cap = "Participants' prevalence judgments in Experiment 3, with model predictions using the parameters estimated in Experiment 2 (horizontal lines)."}
+```{r e3-wppl-plot, fig.cap = "Participants' prevalence judgments in Experiment 2, with model predictions using the parameters estimated in Experiment 1 (horizontal lines)."}
 
 labels <- rasterGrob(png::readPNG(here("figs/e3_plot_labels.png")), interpolate = TRUE)
 
@@ -215,9 +215,19 @@ plot <- ggplot(e3_mean_data %>% mutate(searchtype = factor(searchtype, levels = 
           position = position_dodge(.5),
           method = list(dl.trans(x = x - 1), "last.points", cex=.7)) +
   scale_color_ptol() +
-  theme(strip.background = element_blank(),
-  strip.text.x = element_blank(),
-  legend.position = "none") 
+theme(
+    strip.background =element_rect(fill="transparent"),
+    panel.background = element_rect(fill = "transparent"), # bg of the panel
+    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+    panel.grid.major = element_blank(), # get rid of major grid
+    panel.grid.minor = element_blank(), # get rid of minor grid
+    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
+    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
+    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+)
+
+#ggsave(plot, filename = "e2_plot.png",  width = 8, height = 4, units = "in", dpi = 300, bg = "transparent")
 
 grid.arrange(labels, plot, nrow = 2,
              widths = c(1,19),
