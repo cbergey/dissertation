@@ -1,30 +1,203 @@
-
 The speech children hear mentions more atypical than typical features. Depending on children's pragmatic abilities, this input could provide helpful information or pose a misleading challenge as children learn about the world. If children are able to make the contrastive inference that description tends to pick out atypical features, they could use description to go beyond learning about what they directly experience. If, on the other hand, they merely associate the mentioned feature with the mentioned category, they may mistakenly learn that atypical features are more common than they actually are.
 
 In general, children's pragmatic abilities are thought to undergo prolonged development, not reaching adult-like performance until well into schooling age. The most thoroughly studied pragmatic inference in children, scalar implicature, tells a bleak story about children's ability to make pragmatic inferences at a young age. Scalar implicature is the phenomenon in which use of a weak scalar term ('some,' 'might') implies that a stronger scalar term ('all,' 'must') is not true---for example, "I ate some of the cookies" implies I did not eat all of them. This inference can be derived by reasoning that had the speaker meant the stronger meaning, they would have used the stronger term. Adults consistently interpret the word 'some' to mean 'some but not all,' rating the use of 'some' as unnatural when 'all' is applicable and taking longer to respond to such instances [@bott_utterances_2004; @degen_processing_2015]. Until at least the age of 5 and in some tasks up to 10 years old, children fail to limit the use of 'some' in this way, accepting 'some' as a descriptor when 'all' is true [@noveck_when_2001; @papafragou_scalar_2003]. This deficit is found in a range of measures, from acceptability judgments to eye-tracking [@huang_semantic_2009]. Later work has found that children likely lack this ability because they fail to activate alternative descriptions, so cannot reason that the speaker should have said 'all' and not 'some' if all is true [@barner_accessing_2011], and because they lack a meta-understanding of these tasks [@papafragou_scalar_2003]. When given supportive context, like named alternatives or training on the task, 4- and 5-year-olds improve at these implicatures [@barner_accessing_2011; @papafragou_scalar_2003; @foppolo_scalar_2012]. However, across experiments, performance on scalar implicature remains fragile well into school age.
 
-Contrastive inference from description, however, may be a more accessible form of pragmatic inference because the relevant alternatives are more easily accessible. In the case of using contrastive inference to resolve reference (e.g., "the tall..." prompts looking to a tall object with a shorter counterpart), the relevant alternatives are available in the environment. By the age of 5, children can use contrastive inferences to direct their attention among familiar present objects [@huangsnedeker2008], and when given extra time to orient to the referent, show budding abilities by the age of 3 [@davies_three-year-olds_2021]. Description paired with other contrastive cues can allow children to restrict reference among novel objects or objects with novel properties, though imperfectly [@gelman_implicit_1985; @diesendruck_childrens_2006]. What about when the contrasting set is not available in the environment, but is the referent's category? Preliminary evidence also suggests that contrastive inference about typicality may be possible for young children. When paired with other contrastive cues such as prosody, 4-year-olds can make inferences about novel object typicality, reasoning that "the TALL zib" suggests other zibs are generally shorter [@horowitz_childrens_2016].
+Contrastive inference from description, however, may be a more accessible form of pragmatic inference because the relevant alternatives are more easily accessible. In the case of using contrastive inference to resolve reference (e.g., "the tall..." prompts looking to a tall object with a shorter counterpart), the relevant alternatives are available in the environment. By the age of 5, children can use contrastive inferences to direct their attention among familiar present objects [@huangsnedeker2008], and when given extra time to orient to the referent, show budding abilities by the age of 3 [@davies_three-year-olds_2021]. Description paired with other contrastive cues can allow children to restrict reference among novel objects or objects with novel properties, though imperfectly [@gelman_implicit_1985; @diesendruck_childrens_2006]. 
 
-In this chapter, we will test children's abilities to make contrastive inferences about typicality. To do this, we will use a task similar to those done by adults in Chapter 2, having children observe novel categories and make inferences about the typicality of their features. We will test children's inferences in two domains: novel concrete objects and novel social groups. Social groups are a particularly interesting testing ground for this inference because we often lack enough direct evidence to make firm inferences about them, yet do hold strong beliefs about their features that likely derive largely from the way people talk about them [@rhodes2012]. Further, if people make contrastive inferences from description about social groups, attempts to counteract a stereotype may inadvertently strengthen it: intentionally mentioning a *positive* feature of a group member may lead to a *negative* inference about the rest of the group [analogous to the inadvertent stereotypes conveyed by comparative phrases, @chestnut_just_2021]. Testing contrastive inference in both of these domains will allow us to generalize our understanding of contrastive inference to a domain in which people's (mis)beliefs about typicality have serious consequences. Comparing children's inferences about novel objects and novel social groups can further help us understand how children weigh different types of evidence in learning about different domains of knowledge.
+What about when the contrasting set is not available in the environment, but is the referent's category? Preliminary evidence also suggests that contrastive inference about typicality may be possible for young children. When paired with other contrastive cues, 4-year-olds can make inferences about novel object typicality, reasoning that "the TALL zib" suggests other zibs are generally shorter [@horowitz_childrens_2016]. This work provided a useful demonstration that adjective use can contribute to inferences about feature typicality, though it did not isolate the effect of adjectives specifically. Their experiments used several contrastive cues, such as prosody (contrastive stress on the adjective: "TALL zib"), demonstrative phrases that may have marked the object as unique ("this one") and expressions of surprise at the object ("wow"), and participants may have inferred the object was atypical primarily from these cues and not from the adjective. Further, these experiments used a forced-choice measure that does not allow a precise estimate of how much children's typicality judgments shift from adjective use. Thus, in this experiment, we set out to develop a task that would isolate the effect of adjective use and measure children's typicality judgments in a more graded way. 
+
+In this chapter, we report an exploratory study of children's abilities to make contrastive inferences about typicality. To do this, we used a task similar to those done by adults in Chapter 2, having children observe novel categories and make inferences about the typicality of their features. We study 5- to 6-year-old children, an age at which key pragmatic abilities are developing and when children can use contrastive inferences to direct their attention among familiar referents. Because children at this age struggle to explicitly reason about and report proportions [see @boyer_development_2008 for a review], we will have children report their typicality judgments with the help of visual depictions of *few*, *some*, *most*, and *almost all* objects having a feature. The purpose of this exploratory study is both to see whether children can make sensible responses on this measure and to gather preliminary evidence about children's contrastive inferences. 
+
+```{r load-data}
+cols <- c("subid", "counter", "trialtype", "typicality", "utterance", "shape", "dimension", "feature", "word", "featurefirst", "date", "timestamp", "rtsearch", "rttest", "subage")
+raw_data <- read_csv(here("data/contrast_select_kid.csv"), col_names = cols)
+subjs <- read_csv(here("data/contrast_select_kid_subjs.csv"))
+
+kid_data <- raw_data %>%
+  filter(subid != 0, !is.na(subid)) %>% # filter out test runs
+  left_join(subjs, by = "subid") %>%
+  filter(age > 4, exclude != "TRUE") %>% # filter out any siblings we ran with different ages, kids excluded due to technical difficulties
+  rename(typicality_num = typicality) %>%
+  mutate(typicality = case_when(typicality_num == 1 ~ "few",
+                                typicality_num == 2 ~ "some",
+                                typicality_num == 3 ~ "most",
+                                typicality_num == 4 ~ "almost_all", 
+                                TRUE ~ NA_character_)) %>%
+  mutate(typicality = factor(typicality, levels = c("few","some","most","almost_all")),
+         utterance = factor(utterance, levels = c("noun", "adj_noun", "training")))
+
+n_subjs <- n_distinct(kid_data$subid)
+n_5 <- n_distinct(filter(kid_data, age == 5)$subid)
+n_6 <- n_distinct(filter(kid_data, age == 6)$subid)
+```
+
+```{r means}
+mean_cis <- kid_data %>%
+  filter(utterance != "training") %>%
+  group_by(utterance, dimension) %>%
+  tidyboot_mean(typicality_num)
+
+mean_cis_utt <- kid_data %>%
+  filter(utterance != "training") %>%
+  group_by(utterance, dimension) %>%
+  tidyboot_mean(typicality_num)
+```
 
 ## Method
 
 ### Participants.
 
-We will recruit 60 children ages 4-7 years old, aiming for 15 children per yearly age bin. 
+We recruited `r n_subjs` 5--6-year-old children raised with 90% or greater English language exposure to participate in this task. Children were recruited from a database with mostly families living in the Chicago area, and some families living elsewhere in the United States. In the final sample, `r n_5` 5-year-olds and `r n_6` 6-year-olds participated.
+
+```{r kid-trial, fig.cap = "An example of the novel objects shown on a trial. In each trial, two objects of the same shape and differing on the critical feature were shown sequentially. In adjective noun trials, the critical feature was mentioned for the object that had it (e.g., the wide blicket was called a \"wide blicket\") and in noun trials, no features were mentioned (e.g., both blickets were just called a \"blicket\"."}
+trial1 <- png::readPNG(here("figs/kid_example_trial_1.png"))
+grid::grid.raster(trial1)
+```
+
+```{r kid-dv, fig.cap = "An example of the prevalence judgment children were asked to make. Children chose between clouds of novel objects representing few, some, most, and almost all of the novel category having the feature. The experimenter asked, e.g., \"Let's think about all of the tomas on this planet. How many tomas do you think are spotted? Few of the tomas, some of the tomas, most of the tomas, or almost all of the tomas?\" Children responded verbally or by pointing."}
+dv <- png::readPNG(here("figs/kid_example_DV.png"))
+grid::grid.raster(dv)
+```
 
 ### Design and Procedure.
 
-Children will participate in a storybook-style task in which they observe novel objects and people and make inferences about them. The experiment will have two phases, one about novel fruit objects and one about novel social groups. Half of trials will include just a noun, and half will include an adjective-noun phrase describing the referent. The order of the phases will be randomized, as will the pairing of particular objects to features and the use of an adjective in the trial.
+Children participated in a novel object learning task in which they observed novel objects and made inferences about them. They were introduced to an alien named Blip, who would show things from her planet. Blip's utterances were presented both as recorded audio and displayed in a text bubble on the screen. In each trial, Blip first said "Let's see what I have..." and then sequentially showed two objects with the same name and shape. The two objects differed on the critical feature. In *adjective noun* trials, the critical feature was mentioned (e.g., one object was labeled "It's a blicket" and the other was labeled "It's a striped blicket"); in *noun* trials, the critical feature was not mentioned (e.g., one object was labeled "It's a blicket" and the other was also labeled "It's a blicket"). 
 
-In novel object trials, children will observe a novel object and one of its features will be mentioned (or go unmentioned): "Look at the [tall] toma." The possible features will be tall, wide, spotted, furry, bright, and round. After the observation and utterance, children will see a four-point scale along which the same kind of object varies on the relevant feature, and on which the observed object would fall in the middle. Children will be asked, e.g., "What do you think most tomas look like?" Each trial will use a different object type and novel name.
+After each trial, children were asked to make a judgment about the prevalence of the critical feature in the novel category. For instance, they were asked, "Let's think about all of the blickets on this planet. How many blickets do you think are striped?" There were four options on the screen, each a cloud of six of the same shape of novel object, with differing proportions having the critical feature and in color (and the remaining objects without the feature and in grey). The options were Few (1/6 with feature), Some (2/6 with feature), Most (4/6 with feature), and Almost All (5/6 with feature). After asking the question, the experimenter said the options: "Few of the blickets, some of the blickets, most of the blickets, or almost all of the blickets?" Children responded verbally. If they paused or seemed uncertain, the experimenter repeated the options. If the child preferred to point to the option on the screen (as happened with one participant), the experimenter asked the child's parent to report the option they pointed to. 
 
-In novel social group trials, children will see a group member and an image depicting one of its behaviors. The behavior will be described and a feature will be mentioned or go unmentioned: "Look at the [helpful] hibble. He cleaned up this many toys after playtime." Here, the behavior is mentioned in the utterance because it is more difficult to directly observe such actions in an image. The possible features will be helpful (amount of toys cleaned), hungry (number of pancakes eaten), smart (complexity of puzzle solved), strong (size of rock lifted), kind (amount of candy shared), curious (number of books checked out), and brave (size of tree climbed). After observing the individual, children will see a four-point scale along which the depicted behavior varies, and on which the individual's behavior would fall in the middle. Children will be asked, e.g., "How many toys do you think most hibbles would clean up?" All trials will use the same social group, hibbles, with different individuals depicted on each trial and gendered pronouns randomized.
+There were six trials in total. Half of trials were *adjective noun* trials and half were *noun* trials, and this factor was crossed with the feature type: size (wide or tall), color (blue or red), and pattern (spotted or striped). At each trial, the novel object shape and novel object name were randomly assigned out of a set of six names or shapes. The ordering of two objects in each trial (one with the critical feature and one without) was random.
 
-## Analysis
+Before the main task, children did two practice trials with familiar objects to establish that they understood the response measure. The two practice questions were: "Let's think about all of the cookies in the world. How many cookies do you think are square?" and "Let's think about all of the bananas in the world. How many bananas do you think are yellow?" They responded on the same scale used in the main task trials. 
 
-Our key question is whether children make different inferences when a feature is mentioned in the utterance than when it is not. To test this question, we will use an ordinal logistic regression with children's feature choices as the outcome and utterance type (adjective noun vs. noun), trait type, age, and a random intercept by subject as predictors. Data from the novel object phase and the novel social group phase will first be analyzed separately. In order to compare children's inferences about novel objects and social groups, we will then analyze the two phases of the experiment together, with category domain, utterance type, and age as predictors, as well as the interaction between those factors. While interpreting the difference between object and social group inferences is preliminary because the experiment designs are not perfectly comparable, we can examine whether children make stronger inferences in either domain and whether inferences in each domain have different developmental trajectories as an initial step toward understanding how children weigh contrastive inference in their learning over development.
+```{r}
+kid_barplot <- kid_data %>%
+  filter(utterance != "training") %>%
+  count(utterance, typicality) %>%
+  ggplot(aes(x = utterance, fill = typicality, y = n)) +
+  geom_bar(position = "stack", stat = "identity") 
+```
+
+```{r}
+subjs_familiar <- kid_data %>%
+  filter(utterance == "training") %>%
+  select(subid, shape, typicality_num, age) %>%
+  pivot_wider(names_from = "shape", values_from = "typicality_num") %>%
+  mutate(gets_measure = banana > cookie) %>%
+  filter(gets_measure == TRUE)
+
+n_subjs_familiar <- n_distinct(subjs_familiar$subid)
+n_5_familiar <- n_distinct(filter(subjs_familiar, age == 5)$subid)
+n_6_familiar <- n_distinct(filter(subjs_familiar, age == 6)$subid)
+
+```
+
+## Performance on practice trials
+
+Children's performance on the two practice trials with familiar objects can help give us a sense of whether they understand the typicality measure in this task. If the children understand this measure, we expect them to report that bananas are more commonly yellow than cookies are square. Out of `r n_subjs` participants, `r n_subjs_familiar` (`r n_subjs_familiar/n_subjs`%) rated bananas to be more commonly yellow than cookies are square (`r n_5_familiar/n_5`% of 5-year-olds and `r n_6_familiar/n_6`% of 6-year-olds). That is, many children, especially the younger 5-year-olds, either did not understand this measure well or did not believe that cookies are not typically square and bananas are typically yellow. Below, we will report the results of the main task both for all children and, separately, for just the children who performed correctly on the familiar practice trials to see whether there is evidence for contrastive inference among children who understood the measure.
+
+```{r models-kid}
+model_data <- kid_data %>%
+  filter(utterance != "training") %>%
+  mutate(utterance = factor(utterance, levels = c("noun", "adj_noun")))
+
+model <- lmer(typicality_num ~ utterance * dimension + (1|subid), data = model_data) %>%
+  tidy() 
+
+walk2(c("kid_adj", "kid_pattern", "kid_size", "kid_adj_pattern", "kid_adj_size"), c("utteranceadj_noun", "dimensionpattern", "dimensionsize", "utteranceadj_noun:dimensionpattern", "utteranceadj_noun:dimensionsize"), 
+      ~ make_text_vars(model, .x, .y))
+```
+
+```{r age-model}
+age_model <- lm(typicality_num ~ utterance * dimension * age, data = model_data) %>%
+  tidy() 
+```
+
+```{r}
+measure_kid_data <- kid_data %>%
+  filter(subid %in% subjs_familiar$subid)
+  
+barplot_measure <- measure_kid_data %>%
+  filter(utterance != "training") %>%
+  count(utterance, typicality) %>%
+  ggplot(aes(x = utterance, fill = typicality, y = n)) +
+  geom_bar(position = "stack", stat = "identity") 
+```
+
+```{r models-measure}
+model_data_measure <- measure_kid_data %>%
+  filter(utterance != "training") %>%
+  mutate(utterance = factor(utterance, levels = c("noun", "adj_noun")))
+
+mean_cis_measure <- measure_kid_data %>%
+  filter(utterance != "training") %>%
+  group_by(utterance, dimension) %>%
+  tidyboot_mean(typicality_num)
+
+measure_model <- lmer(typicality_num ~ utterance * dimension + (1|subid), data = model_data_measure) %>%
+  tidy() 
+
+walk2(c("kid_measure_adj", "kid_measure_pattern", "kid_measure_size", "kid_measure_adj_pattern", "kid_measure_adj_size"), c("utteranceadj_noun", "dimensionpattern", "dimensionsize", "utteranceadj_noun:dimensionpattern", "utteranceadj_noun:dimensionsize"), 
+      ~ make_text_vars(measure_model, .x, .y))
+```
+
+```{r kid-results, fig.cap = "Children's prevalence judgments. Children directionally rate features to be less prevalent when they are mentioned with an adjective.", fig.height = 4, fig.width = 6.46}
+kid_plot <- mean_cis %>%
+  ggplot(aes(x = utterance, color = dimension, group = dimension)) +
+  geom_pointrange(aes(y = mean, ymin = ci_lower, ymax = ci_upper), 
+                      position = position_dodge(.5)) +
+  facet_wrap(~dimension)
+
+utt_effect <- mean_cis_utt %>%
+  ggplot(aes(x = utterance)) +
+  geom_pointrange(aes(y = mean, ymin = ci_lower, ymax = ci_upper), 
+                      position = position_dodge(.5)) 
+mean_cis %>%
+  ggplot(aes(x = utterance, color = dimension, group = dimension)) +
+  geom_pointrange(aes(y = mean, ymin = ci_lower, ymax = ci_upper), 
+                      position = position_dodge(.5)) +
+  facet_wrap(~dimension)  +
+  theme(
+    strip.background =element_rect(fill="transparent"),
+    panel.background = element_rect(fill = "transparent"), # bg of the panel
+    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+    panel.grid.major = element_blank(), # get rid of major grid
+    panel.grid.minor = element_blank(), # get rid of minor grid
+    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
+    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
+    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+)
+
+#ggsave(all_kid_plot, filename = "slide_figs/all_kid_plot.png",  width = 6, height = 4, units = "in", dpi = 300, bg = "transparent")
+```
+
+## Results
+
+Our key question is whether children make different inferences when an object's feature is mentioned than when it is not. To test this question, we fit a linear regression with children's prevalence choices as the outcome (coded as *few* = 1, *some* = 2, *most* = 3, and *almost all* = 4) and utterance type (*noun* vs. *adjective noun*), feature type (color, size, or pattern), and their interaction as predictors, as well as a random intercept by subject. The effect of utterance type was marginally significant: children's prevalence judgments were marginally lower when there was an adjective in the utterance ($\beta =$ `r kid_adj_estimate`, $t =$ `r kid_adj_statistic`, $p =$ `r kid_adj_p.value`). Effects of feature type were not significant ($\beta_{pattern} =$ `r kid_pattern_estimate`, $t =$ `r kid_pattern_statistic`, $p =$ `r kid_pattern_p.value`; $\beta_{size} =$ `r kid_size_estimate`, $t =$ `r kid_size_statistic`, $p =$ `r kid_size_p.value`), nor were interactions between utterance type and feature type ($\beta_{adjective-noun*pattern} =$ `r kid_adj_pattern_estimate`, $t =$ `r kid_adj_pattern_statistic`, $p =$ `r kid_adj_pattern_p.value`; $\beta_{adjective-noun*size} =$ `r kid_adj_size_estimate`, $t =$ `r kid_adj_size_statistic`, $p =$ `r kid_adj_size_p.value`). Overall, we find weak evidence that children infer that mentioned features are less typical. Children's prevalence judgments are shown in Figure \ref{fig:kid-results}.
+
+```{r kid-results-measure, fig.cap = "Prevalence judgments among only children who answered the practice trials correctly. These children rate features to be less prevalent when they are mentioned with an adjective.", fig.height = 4, fig.width = 6.46}
+mean_cis_measure %>%
+  ggplot(aes(x = utterance, color = dimension, group = dimension)) +
+  geom_pointrange(aes(y = mean, ymin = ci_lower, ymax = ci_upper), 
+                      position = position_dodge(.5)) +
+  facet_wrap(~dimension) +
+  theme(
+    strip.background =element_rect(fill="transparent"),
+    panel.background = element_rect(fill = "transparent"), # bg of the panel
+    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+    panel.grid.major = element_blank(), # get rid of major grid
+    panel.grid.minor = element_blank(), # get rid of minor grid
+    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
+    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
+    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+)
+
+#ggsave(understand_kid_plot, filename = "slide_figs/understand_kid_plot.png",  width = 6, height = 4, units = "in", dpi = 300, bg = "transparent")
+```
+
+Based on their performance in the practice trials, it seems that many children did not understand the prevalence measure well. We can separately test the performance of children who correctly answered the practice trials to see whether children who understand the measure demonstrate contrastive inference. We fit the same model specification to only children who rated bananas to be yellow more typically than cookies are square. Among these children, there is a significant effect of utterance type, such that they infer that mentioned features are less typical ($\beta =$ `r kid_measure_adj_estimate`, $t =$ `r kid_measure_adj_statistic`, $p =$ `r kid_measure_adj_p.value`). Effects of feature type were not significant ($\beta_{pattern} =$ `r kid_measure_pattern_estimate`, $t =$ `r kid_measure_pattern_statistic`, $p =$ `r kid_measure_pattern_p.value`; $\beta_{size} =$ `r kid_measure_size_estimate`, $t =$ `r kid_measure_size_statistic`, $p =$ `r kid_measure_size_p.value`), nor were interactions between utterance type and feature type ($\beta_{adjective-noun*pattern} =$ `r kid_measure_adj_pattern_estimate`, $t =$ `r kid_measure_adj_pattern_statistic`, $p =$ `r kid_measure_adj_pattern_p.value`; $\beta_{adjective-noun*size} =$ `r kid_measure_adj_size_estimate`, $t =$ `r kid_measure_adj_size_statistic`, $p =$ `r kid_measure_adj_size_p.value`). Children who performed correctly on familiar trials judged mentioned features to be less typical (Figure \ref{fig:kid-results-measure}. 
 
 ## Discussion
 
-In this chapter, we ask how children develop the inference that that when a feature of a novel category is mentioned, that feature is likely to be atypical of the category. One possibility is that children simply associate the words, features and categories that are salient in an instance of reference. This would lead children to think a mentioned feature is representative or typical of the mentioned category, and given the input children hear, would be misleading. Another possibility is that children make the kind of contrastive inference adults make, inferring that the mentioned feature is atypical. Given prior work on children's development of pragmatic inference, we predict that the youngest children in our sample will make a more associative inference, and that over development children will come to make the contrastive inference more strongly. Given our finding that parents mention atypical features more than typical ones (Chapter 1) and our characterization of adults' contrastive inferences (Chapter 2), the results of this experiment can tell us how children come to make adult-like contrastive inferences and what they might learn from the selective description they hear. 
+In this chapter, we ask how children develop the inference that that when a feature of a novel category is mentioned, that feature is likely to be atypical of the category. One possibility is that children simply associate the words, features and categories that are salient in an instance of reference. This would lead children to think a mentioned feature is representative or typical of the mentioned category. Another possibility is that children make the kind of contrastive inference adults make, inferring that the mentioned feature is atypical. In an exploratory study, we found suggestive evidence that 5--6-year-old children are not making an associative inference, and are directionally making a contrastive inference about mentioned features. Further, children who performed correctly on practice trials with familiar objects made significantly lower typicality judgments about mentioned features. However, judging typicality is difficult for young children, and participants struggled with our measure overall. Evidence from this task is only preliminary, and calls for confirmatory tests with larger sample sizes and for the development of measures that are more sensible for young children.

@@ -1,0 +1,36 @@
+subid,date,dob,age,experimenter,selection method (speech/point),notes,exclude
+1,03/21/2023,03/01/2018,5,JM,speech,,FALSE
+2,03/21/2023,6/28/2016,6,JM,speech,,FALSE
+3,3/31/2023,3/3/2018,5,JM,"some pointing, mostly speech",,FALSE
+4,4/7/2023,02/03/2017,6,JM,speech,,FALSE
+5,4/7/2023,05/02/2017,5,JM,speech,,FALSE
+6,4/7/2023,09/08/2017,5,CB,speech,,FALSE
+7,4/7/2023,03/17/2018,5,CB,speech,twin to sub 8,FALSE
+8,4/7/2023,03/17/2018,5,CB,speech,twin to sub 7,FALSE
+9,4/7/2023,11/29/2017,5,CB,speech,,FALSE
+10,4/7/2023,09/05/2017,5,CB,speech,"had serious zoom tech difficulties, needed to move to skype, audio didn't work and i spoke the alien utterances instead",TRUE
+11,4/8/2023,02/08/2017,6,JM,speech,,FALSE
+12,4/10/2023,12/01/2017,5,CB,speech,,FALSE
+13,4/10/2023,9/7/2017,5,CB,speech,,FALSE
+14,4/11/2023,07/03/2017,5,CB,speech,,FALSE
+15,4/11/2023,09/01/2017,5,CB,speech,,FALSE
+16,4/12/2023,12/07/2016,6,JM,speech,,FALSE
+17,4/14/2023,9/30/2018,4,JM,speech,,TRUE
+18,4/14/2023,6/22/2017,5,JM,speech,,FALSE
+19,4/15/2023,6/27/2017,5,JM,speech,,FALSE
+20,4/25/2023,11/24/2016,6,JM,speech,,FALSE
+21,4/17/2023,10/14/2016,6,CB,speech,,FALSE
+22,4/18/2023,02/01/2017,6,JM,speech,,FALSE
+23,4/18/2023,10/09/2016,6,CB,speech,,FALSE
+24,4/18/2023,10/27/2016,6,CB,speech,,FALSE
+25,4/20/2023,07/15/2016,6,JM,speech,,FALSE
+26,4/20/2023,07/12/2016,6,JM,speech,,FALSE
+27,4/21/2023,07/19/2016,6,JM,speech,,FALSE
+28,4/21/2023,09/27/2017,5,CB,speech,,FALSE
+29,4/25/2023,09/14/2017,5,CB,speech,,FALSE
+30,4/28/2023,10/08/2016,6,CB,speech,,FALSE
+31,4/29/2023,08/08/2016,6,JM,speech,,FALSE
+,,,0,,,,
+,,,0,,,,
+,,,0,,,,
+,,,0,,,,

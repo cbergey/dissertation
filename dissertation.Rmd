@@ -17,7 +17,7 @@ affiliation:
 wordcount         : ""
 references        : ""
 
-bibliography      : ["proposal.bib"]
+bibliography      : ["dissertation.bib"]
 
 floatsintext      : yes
 figurelist        : no
@@ -49,7 +49,9 @@ library(tidyverse)
 library(lme4)
 library(broom)
 library(broom.mixed)
+#library(ggpubr)
 library(here)
+library(nnet)
 library(english)
 library(weights)
 library(scales)
@@ -105,15 +107,15 @@ In Chapter 3, we propose to test whether children are able to use contrastive in
 
 # Chapter 1: People talk more about atypical than typical features of things
 
-```{r child = "proposal_sections/chapter_1/ch1.Rmd"}
+```{r child = "diss_sections/chapter_1/ch1.Rmd"}
 ```
 
 # Chapter 2: How adults use contrastive inference to learn about new categories
 
-```{r child = "proposal_sections/chapter_2/experiment2.Rmd"}
+```{r child = "diss_sections/chapter_2/experiment2.Rmd"}
 ```
 
-```{r child = "proposal_sections/chapter_2/experiment3.Rmd"}
+```{r child = "diss_sections/chapter_2/experiment3.Rmd"}
 ```
 
 ## Conclusion
@@ -122,7 +124,7 @@ In Chapter 1, we established that people tend to mention atypical rather than ty
 
 # Chapter 3: How children use contrastive inference to learn about new categories
 
-```{r child = "proposal_sections/chapter_3/ch3.Rmd"}
+```{r child = "diss_sections/chapter_3/ch3.Rmd"}
 ```
 
 # Conclusion
