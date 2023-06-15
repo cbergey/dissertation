@@ -1,0 +1,95 @@
+% ---- ETD Document Class and Useful Packages ---- %
+% v1.3.0 released April 12, 2023.
+% https://github.com/k4rtik/uchicago-dissertation
+\documentclass{ucetd}
+
+\usepackage[T1]{fontenc}
+\usepackage{subcaption,graphicx}
+\usepackage{natbib}
+\usepackage{mathtools}  % loads amsmath
+\usepackage{amssymb}    % loads amsfonts
+\usepackage{amsthm}
+
+%% Use these commands to set biographic information for the title page:
+\newcommand{\thesistitle}{Remarkable features: Using descriptive contrast to express and infer typicality}
+\newcommand{\thesisauthor}{Claire Augusta Bergey}
+\department{Psychology}
+\division{Social Sciences}
+\degree{Doctor of Philosophy}
+\date{August 2023}
+
+\title{\thesistitle}
+\author{\thesisauthor}
+
+%% Use these commands to set a dedication and epigraph text
+\dedication{Dedication Text}
+\epigraph{Epigraph Text}
+
+\usepackage{doi}
+\usepackage{xurl}
+\hypersetup{bookmarksnumbered,
+            linktoc=all,
+            pdftitle={\thesistitle},
+            pdfauthor={\thesisauthor},
+            pdfsubject={},                                % Add subject/description
+            % pdfkeywords={keyword1, keyword2, keyword3}, % Uncomment and revise keywords
+            pdfborder={0 0 0}}
+% See https://github.com/k4rtik/uchicago-dissertation/issues/1
+\makeatletter
+\let\ORG@hyper@linkstart\hyper@linkstart
+\protected\def\hyper@linkstart#1#2{%
+  \lowercase{\ORG@hyper@linkstart{#1}{#2}}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+{\setlength{\parindent}{0pt}%
+\everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
+{\par}
+\begin{document}
+%% Basic setup commands
+% If you don't want a title page comment out the next line and uncomment the line after it:
+\maketitle
+%\omittitle
+
+% These lines can be commented out to disable the copyright/dedication/epigraph pages
+\makecopyright
+%\makededication
+%\makeepigraph
+
+
+%% Make the various tables of contents
+\tableofcontents
+\listoffigures
+\listoftables
+
+\acknowledgments
+% Enter Acknowledgements here
+Each chapter in this proposal represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for guidance throughout the preparation of this work.
+
+Thank you to Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee for feedback on portions of this research and manuscript. Portions of this work were published in the proceedings of Experiments in Linguistic Meaning (2020) and the proceedings of the 42nd annual meeting of the Cognitive Science Society. I am grateful for feedback from reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the meeting of the Society for Research in Child Development, the Midwestern Cognitive Science Conference, and the Dubrovnik Conference on Cognitive Science.
+
+The research reported in Chapter 2 was funded by a James S. McDonnell Foundation Scholar Award in Understanding Human Cognition 220020506 to Dan Yurovsky. The funding body had no involvement in the conceptualization, data collection, or analysis of this project.
+
+\abstract
+% Enter Abstract here
+We mention what is remarkable while letting the unremarkable go unsaid. Thus, while language can tell us a lot about the world, it does not veridically reflect the world: people are more likely to talk about atypical features (e.g., ``purple carrot'') than typical features (e.g., ``[orange] carrot''). In this dissertation, I characterize how people selectively describe the features of things and examine the implications of this selective description for how children and adults learn from language. In Chapter 1, I show that adults speaking to other adults, caregivers speaking to children, and children themselves tend to mention the atypical more than the typical features of concrete things. Language is structured to emphasize what is atypical—so how can one learn about what things are typically like from language? In this chapter I also show that language models that use word co-occurrence to derive word meaning do not capture the typicality of adjective–noun pairs well. However, people can learn in more complex ways: in Chapter 2, I show that people infer that mentioned features are atypical. That is, when a novel object is called a ``purple toma,'' adults infer that tomas are less commonly purple in general. This inference is captured by a model in the Rational Speech Act framework that posits that listeners reason about speakers' communicative goals. In Chapter 3, I ask: do children themselves infer that mentioned features are atypical? I find preliminary evidence that 5- to 6-year-old children who reliably respond on our typicality measure can make these inferences, and map out possibilities to further test this question with young children. Overall, this dissertation examines how language does not directly reflect the world, but selectively picks out remarkable facets of it, and what this implies for how adults, children, and language models learn.
+
+\mainmatter
+% Main body of text follows
+$body$
+%\chapter{Introduction}
+% Introductory stuff
+
+%\chapter{A Chapter}
+%\section{Introduction}
+% Intro to chapter one
+
+% Format a LaTeX bibliography
+\makebibliography
+
+% Figures and tables, if you decide to leave them to the end
+%\input{figure}
+%\input{table}
+
+\end{document}
