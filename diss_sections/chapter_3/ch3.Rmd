@@ -136,7 +136,7 @@ measure_model <- lmer(typicality_num ~ utterance * dimension + (1|subid), data =
 walk2(c("kid_measure_adj", "kid_measure_pattern", "kid_measure_size", "kid_measure_adj_pattern", "kid_measure_adj_size"), c("utteranceadj_noun", "dimensionpattern", "dimensionsize", "utteranceadj_noun:dimensionpattern", "utteranceadj_noun:dimensionsize"), 
       ~ make_text_vars(measure_model, .x, .y))
 ```
-```{r kid-results, fig.cap = "Children's prevalence judgments across utterance conditions and feature types.", fig.height = 4, fig.width = 6.46}
+```{r kid-results, fig.align = "center", fig.cap = "Children's prevalence judgments across utterance conditions and feature types.", fig.height = 4, fig.width = 6.46}
 kid_plot <- mean_cis %>%
   ggplot(aes(x = utterance, color = dimension, group = dimension)) +
   geom_pointrange(aes(y = mean, ymin = ci_lower, ymax = ci_upper), 
@@ -174,7 +174,7 @@ mean_cis %>%
 
 Our key question is whether children make different inferences when an object's feature is mentioned than when it is not. To test this question, we fit a linear regression with children's prevalence choices as the outcome (coded as *few* = 1, *some* = 2, *most* = 3, and *almost all* = 4) and utterance type (*noun* vs. *adjective noun*), feature type (color, size, or pattern), and their interaction as predictors, as well as a random intercept by subject. The effect of utterance type was marginally significant: children's prevalence judgments were marginally lower when there was an adjective in the utterance ($\beta =$ `r kid_adj_estimate`, $t =$ `r kid_adj_statistic`, $p =$ `r kid_adj_p.value`). Effects of feature type were not significant ($\beta_{pattern} =$ `r kid_pattern_estimate`, $t =$ `r kid_pattern_statistic`, $p =$ `r kid_pattern_p.value`; $\beta_{size} =$ `r kid_size_estimate`, $t =$ `r kid_size_statistic`, $p =$ `r kid_size_p.value`), nor were interactions between utterance type and feature type ($\beta_{adjective-noun*pattern} =$ `r kid_adj_pattern_estimate`, $t =$ `r kid_adj_pattern_statistic`, $p =$ `r kid_adj_pattern_p.value`; $\beta_{adjective-noun*size} =$ `r kid_adj_size_estimate`, $t =$ `r kid_adj_size_statistic`, $p =$ `r kid_adj_size_p.value`). Though effects of feature type and the interaction between utterance type and feature type are not significant, visually examining the plotted data, the overall marginal effect of utterance type seems to be driven by the color condition. Overall, we find weak evidence that children infer that mentioned features are less typical. Children's prevalence judgments are shown in Figure \ref{fig:kid-results}.
 
-```{r kid-results-measure, fig.cap = "Prevalence judgments among only children who answered the practice trials correctly. These children rate features to be less prevalent when they are mentioned with an adjective.", fig.height = 4, fig.width = 6.46}
+```{r kid-results-measure, fig.align = "center", fig.cap = "Prevalence judgments among only children who answered the practice trials correctly. These children rate features to be less prevalent when they are mentioned with an adjective.", fig.height = 4, fig.width = 6.46}
 mean_cis_measure %>%
   mutate(utterance = if_else(utterance == "noun", "noun", "adjective noun"),
          utterance = factor(utterance, levels = c("noun", "adjective noun"))) %>%

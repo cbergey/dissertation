@@ -50,20 +50,20 @@ If listeners do make contrastive inferences about typicality, it may not be as s
 
 In two experiments, we used an artificial language task to set up just this kind of learning situation. We manipulated the contexts in which listeners hear adjectives modifying novel names of novel referents. These contexts varied in how useful the adjective was to identify the referent: some contexts the adjectives were necessary for reference, and in others they were unhelpful. On a reference-first view, use of an adjective that was necessary for reference can be explained away and should not prompt further inferences about typicality--an atypicality inference would be blocked. If, on the other hand, people take into account speakers' multiple reasons for using adjectives without giving priority to reference, they may alter their inferences about typicality across these contexts in a graded way: if an adjective was necessary for reference, it may prompt slightly weaker inferences of atypicality; if an adjective was redundant with respect to reference, it may be inferred to mark atypicality more strongly. Further, these contexts may also prompt distinct inferences when no adjective is used: for instance, when an adjective is necessary to identify the referent but elided, people may infer that the elided feature is particularly typical. To account for the multiple ways context effects might emerge, we analyze both of these possibilities. Overall, we asked whether listeners infer that these adjectives identify atypical features of the named objects, and whether the strength of this inference depends on the referential ambiguity of the context in which adjectives are used.
 
-```{r e2-aliens, fig.cap = "Experiment 1 stimuli. In the above example, the critical feature is size and the object context is a within-category contrast: the alien on the right has two same-shaped objects that differ in size."}
+```{r e2-aliens, fig.align = "center", fig.cap = 'Experiment 1 stimuli. In the above example, the critical feature is size and the object context is a within-category contrast: the alien on the right has two same-shaped objects that differ in size.'}
 img <- png::readPNG(here("figs/e2-stimuli.png"))
 grid::grid.raster(img)
 ```
 
-# Experiment 1
+## Experiment 1
 
-## Method
+### Method
 
-### Participants.
+#### Participants.
 
 240 participants were recruited from Amazon Mechanical Turk. Half of the participants were assigned to a condition in which the critical feature was color (red, blue, purple, or green), and the other half of participants were assigned to a condition in which the critical feature was size (small or big).
 
-### Stimuli & Procedure.
+#### Stimuli & Procedure.
 
 Stimulus displays showed two alien interlocutors, one on the left side (Alien A) and one on the right side (Alien B) of the screen, each with two novel fruit objects beneath them (Figure \ref{fig:e2-aliens}). Alien A, in a speech bubble, asked Alien B for one of its fruits (e.g., "Hey, pass me the big toma"). Alien B replied, "Here you go!" and the referent disappeared from Alien B's side and reappeared on Alien A's side. 
 
@@ -77,7 +77,7 @@ Participants completed six trials. After each exchange between the alien interlo
 
 After completing the study, participants were asked to select which of a set of alien words they had seen previously during the study. Four were words they had seen, and four were novel lure words. Participants were dropped from further analysis if they did not respond to at least 6 of these 8 correctly (above chance performance as indicated by a one-tailed binomial test at the $p = .05$ level). This resulted in excluding `r e2_excluded_n` participants, leaving `r e2_kept_n` for further analysis.  
 
-## Results
+### Results
 
 ```{r e2-models}
 e2_model <- lmer(percentage ~ condition * adjective * searchtype +
@@ -106,7 +106,7 @@ walk2(c("e2_all_adj_search_contrast", "e2_all_adj_search_same"),
       ~ make_text_vars(e2_model_all_adj, .x, .y))
 ```
 
-```{r e2-results, fig.cap = "Prevalence judgments from Experiment 1. Participants consistently judged the target object as less typical of its category when the referent was described with an adjective (e.g., \"Pass me the blue toma\") than when it was not (e.g., \"Pass me the toma\"). This inference was not significantly modulated by object context (examples shown above each figure panel).", fig.height = 4, fig.width = 6.46}
+```{r e2-results, fig.align = "center", fig.cap = "Prevalence judgments from Experiment 1. Participants consistently judged the target object as less typical of its category when the referent was described with an adjective (e.g., \"Pass me the blue toma\") than when it was not (e.g., \"Pass me the toma\"). This inference was not significantly modulated by object context (examples shown above each figure panel).", fig.height = 4, fig.width = 6.46}
 labels <- rasterGrob(png::readPNG(here("figs/e2_plot_labels.png")), interpolate = TRUE)
 
 
@@ -155,11 +155,11 @@ This model revealed a significant effect of utterance type ($\beta_{adjective} =
 
 This lack of a context effect may be because people do not take context into account, or because they make distinct inferences when an adjective is *not* used: for instance, when an adjective is necessary for reference but elided, people may infer that the unmentioned feature is very typical. This inference would lead to a difference between the adjective and no adjective utterances in the within-category context, but not because people are failing to attribute the adjective to reference. To account for this possibility, we additionally tested for differences in the context conditions among only the utterances with adjectives. We fit a model with effects of context type and critical feature as well as their interaction and random slopes by subject. Participants did not significantly adjust their inferences by context among only the adjective utterances ($\beta_{within} =$ `r e2_all_adj_search_contrast_estimate`, $t =$ `r e2_all_adj_search_contrast_statistic`, $p =$ `r e2_all_adj_search_contrast_p.value`; $\beta_{same} =$ `r e2_all_adj_search_same_estimate`, $t =$ `r e2_all_adj_search_same_statistic`, $p =$ `r e2_all_adj_search_same_p.value`). Thus, even by this more specific test, participants did not adjust their inferences based on the referential context.
 
-## Discussion
+### Discussion
 
 Description is often used not to distinguish among present objects, but to pick out an object's feature as atypical of its category. In Experiment 1, we asked whether people would infer that a described feature is atypical of a novel category after hearing it mentioned in an exchange. We found that people robustly inferred that a mentioned feature was atypical of its category, across both size and color description. Further, participants did not use object context to substantially explain away description. That is, even when description was necessary to distinguish among present objects (e.g., there were two same-shaped objects that differed only in the mentioned feature), participants still inferred that the feature was atypical of its category. This suggests that, in the case of hearing someone ask for a "red tomato" from a bin of many-colored heirloom tomatoes, a tomato-naive person would infer that tomatoes are relatively unlikely to be red.
 
-## Model
+### Model
 
 To formalize the inference that participants were asked to make, we developed a model in the Rational Speech Act Framework  [RSA, @frank2012]. In this framework, pragmatic listeners ($L$) are modeled as drawing inferences about speakers' ($S$) communicative intentions in talking to a hypothetical literal listener ($L_{0}$). This literal listener makes no pragmatic inferences at all, evaluating the literal truth of a statement (e.g., it is true that a red toma can be called "toma" and "red toma" but not "blue toma"), and chooses randomly among all referents consistent with that statement. In planning their referring expressions, speakers choose utterances that are successful at accomplishing two goals: (1) making the listener as likely as possible to select the correct object, and (2) minimizing their communicative cost (i.e., producing as few words as possible). Note that though determiners are not given in the model's utterances, the assumption that the utterance refers to a specific reference is built into the model structure, consistent with the definite determiners used in the task. Pragmatic listeners use Bayes' rule to invert the speaker's utility function, essentially inferring what the speaker's intention was likely to be given the utterance they produced. 
 
@@ -320,7 +320,7 @@ e2_inference_means <- e2_inference %>%
   summarise(p = mean(p))
 ```
 
-```{r e2-wppl-plot, fig.height = 4, fig.width = 6.46, fig.cap = "Participants' prevalence judgments from Experiment 1, compared to model predictions (horizontal lines)."}
+```{r e2-wppl-plot, fig.align = "center", fig.height = 4, fig.width = 6.46, fig.cap = "Participants' prevalence judgments from Experiment 1, compared to model predictions (horizontal lines)."}
 e2_wppl_data <- e2_inference_means %>%
   mutate(p = 100 * p) %>%
   rename(empirical_stat = p, adjective = utterance,

@@ -1,35 +1,13 @@
 ---
-title             : "Remarkable features: Using descriptive contrast to express and infer typicality"
-shorttitle        : "Descriptive contrast and typicality"
-
-author: 
-  - name          : "Claire Augusta Bergey"
-    affiliation   : "1"
-    corresponding : yes    # Define only one corresponding author
-    address       : "5848 S. University Avenue, Chicago, IL 60637"
-    email         : "cbergey@uchicago.edu"
-
-affiliation:
-  - id            : "1"
-    institution   : "The University of Chicago"
-
-
-wordcount         : ""
-references        : ""
-
-bibliography      : ["dissertation.bib"]
-
-floatsintext      : yes
-figurelist        : no
-tablelist         : no
-footnotelist      : no
-linenumbers       : no
-mask              : no
-draft             : no
-documentclass     : "apa6"
-classoption       : "man"    
-output            : papaja::apa6_pdf
+output            : 
+  pdf_document: 
+    template: thesis_RF.tex
+    keep_tex: true
+    pandoc_args: ["--top-level-division=chapter"]
+    
+bibliography      : references.bib
 ---
+
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.pos = '!tb', echo = FALSE, cache = TRUE, 
@@ -88,6 +66,8 @@ make_text_vars <- function(df, term_name, term_filter = NULL) {
 }
 ```
 
+# Introduction {-}
+
 An utterance can say much more about the world than its literal interpretation might suggest. For instance, if you hear a colleague say "We should hire a female professor," you might infer something about the speaker's goals, the makeup of a department, or even the biases of a field—none of which is literally stated. These inferences depend on recognition that a speaker's intended meaning can differ from the literal meaning of their utterance, and the process of deriving this intended meaning is called *pragmatics*. Frameworks for understanding pragmatic inference posit that speakers tend to follow general principles of conversation—for instance, that they tend to be relevant, brief, and otherwise helpfully informative [@grice1975logic; @sperber1986relevance; @clark_pragmatics_1990]. When a speaker deviates from these principles, a listener can reason about the alternative utterances the speaker might have said and infer some intended meaning that goes beyond the literal meaning of their utterance.
 
 Beyond enriching the interpretation of utterances whose literal meaning is known, pragmatic inference is a potentially powerful mechanism for learning about new words and concepts. People can learn the meanings of words by tracking associations between word use and present objects alone [@yu2007], but reasoning about a speaker's intended meaning---not just relating the words they say to objects in the environment---may support more rapid and more accurate learning [@frank2009]. For example, @akhtar_role_1996 showed that young children can infer the meaning of a new word by using the principle that people tend to remark on things that are new and interesting to them. In this study, an experimenter leaves the room and a new toy emerges in her absence; once she comes back, the toy is familiar to the child but not to the experimenter. When she uses a novel name, "gazzer," the child can infer that the word refers to the toy that is novel to the experimenter, and not to other toys the experimenter had already seen. Experiments with adults show that they too can use general principles of informativeness to infer a novel referent's name [@frank2014].
@@ -107,12 +87,12 @@ In Chapter 2, we establish that adults can use contrastive inferences to learn a
 In Chapter 3, we present a preliminary study of children's own contrastive inferences. We test whether children infer that, for example, mentioning that a certain object is tall, blue or spotted implies that other group members are less likely to have those features. However, testing children in this kind of task presents a key difficulty: young children often struggle with the kinds of scales we use to ask adults about typicality. Our study therefore has two goals: both to examine whether 5- to 6-year-old children can sensibly report typicality on a scale from *few* to *almost all*, and to gather preliminary evidence about their contrastive inferences. We find that though about half of children in this age range struggle with this measure, children who do understand the measure show evidence of contrastive inference. We discuss the implications of this kind of inference for children's learning given the descriptions they hear from caregivers, and the potential unintended consequences of remarking on individuals' traits for children's learning. 
 
 
-# Chapter 1: People talk more about atypical than typical features of things
+# People talk more about atypical than typical features of things
 
 ```{r child = "diss_sections/chapter_1/ch1.Rmd"}
 ```
 
-# Chapter 2: How adults use contrastive inference to learn about new categories
+# How adults use contrastive inference to learn about new categories
 
 ```{r child = "diss_sections/chapter_2/experiment2.Rmd"}
 ```
@@ -124,12 +104,12 @@ In Chapter 3, we present a preliminary study of children's own contrastive infer
 
 In Chapter 1, we established that people tend to mention atypical rather than typical features. In this chapter, we showed that adults make appropriate pragmatic inferences given how speakers describe: they infer that a mentioned feature is likely to be less typical of the mentioned category. However, the ability to learn about new categories using contrastive inference most obviously serves budding language learners---children. To fully appreciate the potential of these inferences to allow people to learn about the world, we must study their development, which we will turn to in Chapter 3.
 
-# Chapter 3: How children use contrastive inference to learn about new categories
+# How children use contrastive inference to learn about new categories
 
 ```{r child = "diss_sections/chapter_3/ch3.Rmd"}
 ```
 
-# Conclusion
+# Conclusion {-}
 
 This dissertation examines how speakers selectively describe remarkable features and how listeners use this selective description to learn more about the world. In doing so, it inverts the framework that has positioned pragmatic inference as augmenting literal meaning that is already known, instead considering how people can use pragmatics to learn more about the semantics of unfamiliar things. 
 
@@ -145,17 +125,5 @@ The ability to exploit description to learn more about the world than one has ob
 
 The core computation in pragmatic inference is reasoning about alternatives---things the speaker could have said and did not. Given that others are reasoning about these alternatives, no choice is neutral. In the studies in Chapter 2, for instance, using an adjective in referring to an object led people to infer that the feature described by that adjective was less typical than if it had not been mentioned. But, conversely, *not* using an adjective led them to think that the feature was more typical than if they could not understand the meaning of the utterance at all---all communicative choices leak one's beliefs about the world. This has implications not only for learning about novel concrete objects, as people did here, but for learning about less directly accessible entities such as abstract concepts and social groups. These inferences can be framed positively, as ways for learners to extract additional knowledge that was not directly conveyed, but can also spread beliefs that the speaker does not intend. The principle that people speak informatively is simple, but it holds unintuitive consequences---among speakers and listeners, humans and machines, adults and children---for describing and learning about the world.
 
-# Acknowledgements
-
-Each chapter in this proposal represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for guidance throughout the preparation of this work.
-
-Thank you to Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee for feedback on portions of this research and manuscript. Portions of this work were published in the proceedings of Experiments in Linguistic Meaning (2020) and the proceedings of the 42nd annual meeting of the Cognitive Science Society. I am grateful for feedback from reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the meeting of the Society for Research in Child Development, the Midwestern Cognitive Science Conference, and the Dubrovnik Conference on Cognitive Science.
-
-The research reported in Chapter 2 was funded by a James S. McDonnell Foundation Scholar Award in Understanding Human Cognition \#220020506 to Dan Yurovsky. The funding body had no involvement in the conceptualization, data collection, or analysis of this project.
-
-
 \newpage
-
 # References
-
-<div id = "refs"></div>
