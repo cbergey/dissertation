@@ -73,9 +73,47 @@
 
 \acknowledgments
 % Enter Acknowledgements here
-Each chapter in this proposal represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for guidance throughout the preparation of this work.
+Each chapter in this dissertation represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. None of this work could have happened without Dan, Ben, and Jordyn, and anything this dissertation gets right can be credited to their intellectual contributions to these chapters and to my life.
 
-Thank you to Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee for feedback on portions of this research and manuscript. Portions of this work were published in the proceedings of Experiments in Linguistic Meaning (2020) and the proceedings of the 42nd annual meeting of the Cognitive Science Society. I am grateful for feedback from reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the meeting of the Society for Research in Child Development, the Midwestern Cognitive Science Conference, and the Dubrovnik Conference on Cognitive Science.
+Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for all they have given me: frameworks to think in, an intellectual community to be a part of, and guidance to follow (or not). There are few gifts better than a new way to see the world.
+
+Thank you to Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee for feedback on portions of this work. 
+
+Too many people made some imprint on me and this work to mention; a few choice words for choice people:
+
+To Jean and Barry, for the love of thinking—you made me and made me who I am;
+
+To Matthew, it's a pleasure to share ideals with you;
+
+To Julia, for being my best critic—seeing what the best of something can be;
+
+To Rosemary, 
+
+To Scott, who has seen it all happen, for being 
+
+To Jane and Erica, my oldest friends and we're not slowing down;
+
+To Ben, for always being willing to tackle our research and our friendship;
+
+To Ruthe, because you can do whatever you want;
+
+To Hannah, for 
+
+To Ya\u{g}mur, for 
+
+To Mike, 
+
+To Casey,
+
+To Jimmy,
+To Ivan,
+To Jenny,
+To Karthik,
+To Russell
+To Ashley
+
+
+None of you will ever get rid of me.
 
 The research reported in Chapter 2 was funded by a James S. McDonnell Foundation Scholar Award in Understanding Human Cognition 220020506 to Dan Yurovsky. The funding body had no involvement in the conceptualization, data collection, or analysis of this project.
 
@@ -402,7 +440,7 @@ of pairs from the CABNC.
 \centering
 \begin{tabular}{llrrrr}
   \hline
-utterance & pair & rating 1 & rating 2 & rating 3 & mean typicality \\ 
+utterance & pair & rating 1 & rating 2 & rating 3 & mean \\ 
   \hline
 especially with wooden shoes. & wooden-shoe &   2 &   2 &   2 & 2.00 \\ 
   you like red onions? & red-onion &   5 &   3 &   4 & 3.60 \\ 
@@ -682,20 +720,20 @@ weakly so (\(r =\) 0.154, \(p\) \textless{} .001).
 One possible confound in these analyses is that the similarity judgments
 produced by our models reflect many dimensions of similarity, but our
 human judgments reflect only typicality. To accommodate this, we
-performed a second analysis in which we considered only the subset of
-124 nouns that had both a typical (rated as at least ``often'') and an
+performed a second analysis in which we considered only the subset of 10
+nouns that had both a typical (rated as at least ``often'') and an
 atypical (rated as at most ``sometimes'') adjective. We then asked
 whether the models rated the typical adjective as more similar to the
 noun it modified than the atypical adjective. The LDP model correctly
-classified 57 out of 124 (0.46), which was not different from chance
-(\(p =\) .419). The Wikipedia-trained word2vec model correctly
-classified 95 out of 124 (0.766), which was better than chance according
-to a binomial test, but not highly accurate (\(p =\) \textless{} .001).
-BERT correctly classified 76 out of 124 (0.613), which is significantly
-better than chance (\(p =\) .015). However, BERT's performance was
+classified 7 out of 10 (0.7), which was not different from chance
+(\(p =\) .344). The Wikipedia-trained word2vec model correctly
+classified 5 out of 10 (0.5), which was better than chance according to
+a binomial test, but not highly accurate (\(p =\) \textgreater{} .999).
+BERT correctly classified 6 out of 10 (0.6), which is significantly
+better than chance (\(p =\) .754). However, BERT's performance was
 directionally less accurate than Wikipedia-trained word2vec: using a
 more advanced model did not improve performance on this task. Figure
-\ref{fig:halfs} shows the models' ratings for the 124 nouns and their
+\ref{fig:halfs} shows the models' ratings for the 10 nouns and their
 typical and atypical adjectives alongside scaled average human ratings.
 
 \begin{figure}[!tb]
@@ -704,7 +742,16 @@ typical and atypical adjectives alongside scaled average human ratings.
 
 }
 
-\caption{Plots of word2vec and BERT noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").}\label{fig:halfs}
+\caption{Plots of word2vec noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").}\label{fig:halfs}
+\end{figure}
+
+\begin{figure}[!tb]
+
+{\centering \includegraphics{figs/bert-gpt-1} 
+
+}
+
+\caption{Plots of BERT and GPT-3 noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").}\label{fig:bert-gpt}
 \end{figure}
 
 \hypertarget{general-discussion}{%

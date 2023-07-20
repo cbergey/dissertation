@@ -158,11 +158,28 @@ w2v_judgments <- read_csv(here("data/ch1/w2v_sims_ldp_cabnc.csv")) %>%
 bert_judgments <- read_csv(here("data/ch1/bert_judgments_ldp_cabnc.csv")) %>%
   select(adjective, noun, prob, is_multi_token)
 
+gpt3_judgments_raw <- read_csv(here("data/ch1/gpt3_judgments_ldp_cabnc.csv")) %>%
+  rbind(read_csv(here("data/ch1/gpt3_judgments_ldp_cabnc_2.csv"))) %>%
+  rbind(read_csv(here("data/ch1/gpt3_judgments_ldp_cabnc_3.csv")))
+
+gpt3_judgments <- gpt3_judgments_raw %>%
+  mutate(gpt3_judgment = str_remove(tolower(gpt3_judgment), "[.]")) %>%
+  mutate(gpt3_judgment = if_else(gpt3_judgment == "usually rarely", "rarely", gpt3_judgment)) %>%
+  mutate(gpt3_score = case_when(gpt3_judgment == "never" ~ 1,
+                                gpt3_judgment == "rarely" ~ 2,
+                                gpt3_judgment == "sometimes" ~ 3,
+                                gpt3_judgment == "about half the time" ~ 4,
+                                gpt3_judgment == "often" ~ 5,
+                                gpt3_judgment == "almost always" ~ 6,
+                                gpt3_judgment == "always" ~ 7))
+
 all_judgments <- mean_ratings %>%
   left_join(bert_judgments, by = c("adjective", "noun")) %>%
   rename(bert_prob = prob) %>%
-  left_join(w2v_judgments, by = c("adjective", "noun"))
+  left_join(w2v_judgments, by = c("adjective", "noun")) %>%
+  left_join(gpt3_judgments, by = c("adjective", "noun"))
 ```
+
 ```{r models}
 parent_tokens <- ldp %>%
   filter(person == "parent") %>%
@@ -579,7 +596,7 @@ high_low_all <- high_low_pairs %>%
 
 correct_orders <- high_low_all %>%
   select(-n) %>%
-  pivot_longer(cols = c(ldp_similarity, wiki_similarity, bert_prob), 
+  pivot_longer(cols = c(ldp_similarity, wiki_similarity, bert_prob, gpt3_score), 
                names_to = "measure", values_to = "similarity") %>%
   select(-adjective, -mean_typ) %>%
   pivot_wider(names_from = "typicality", values_from = "similarity") %>%
@@ -600,6 +617,9 @@ bert_correct <- correct_orders %>%
   filter(measure == "bert_prob") %>%
   pull(correct)
 
+gpt3_correct <- correct_orders %>%
+  filter(measure == "gpt3_score") %>%
+  pull(correct)
 
 pairs_total <- correct_orders %>% pull(total) %>% first()
 
@@ -608,6 +628,8 @@ ldp_binom <- binom.test(ldp_correct, pairs_total)$p.value %>%
 wiki_binom <- binom.test(wiki_correct, pairs_total)$p.value %>%
   printp()
 bert_binom <- binom.test(bert_correct, pairs_total)$p.value %>%
+  printp()
+gpt3_binom <- binom.test(gpt3_correct, pairs_total)$p.value %>%
   printp()
 ```
 ```{r}
@@ -619,9 +641,9 @@ halves_data <- high_low_all %>%
               names_to = "measure", values_to = "score") %>%
   mutate(measure = factor(measure, 
                           levels = c("mean_typ", "ldp_similarity", 
-                                     "wiki_similarity", "bert_prob"), 
+                                     "wiki_similarity", "bert_prob", "gpt3_score"), 
                           labels = c("Human", "LDP word2vec", 
-                                     "Wiki word2vec", "BERT"))) %>%
+                                     "Wiki word2vec", "BERT", "GPT-3"))) %>%
   mutate(score = if_else(measure=="Human", score/7, score)) 
 
 human <- halves_data %>%
@@ -662,23 +684,23 @@ However, the corpus on which we trained this model was small; perhaps our model 
 
 One possible confound in these analyses is that the similarity judgments produced by our models reflect many dimensions of similarity, but our human judgments reflect only typicality. To accommodate this, we performed a second analysis in which we considered only the subset of `r pairs_total` nouns that had both a typical (rated as at least "often") and an atypical (rated as at most "sometimes") adjective. We then asked whether the models rated the typical adjective as more similar to the noun it modified than the atypical adjective. The LDP model correctly classified `r ldp_correct` out of `r pairs_total` (`r ldp_correct / pairs_total`), which was not different from chance ($p =$ `r ldp_binom`). The Wikipedia-trained word2vec model correctly classified `r wiki_correct` out of `r pairs_total` (`r wiki_correct / pairs_total`), which was better than chance according to a binomial test, but not highly accurate ($p =$ `r wiki_binom`). BERT correctly classified `r bert_correct` out of `r pairs_total` (`r bert_correct / pairs_total`), which is significantly better than chance ($p =$ `r bert_binom`). However, BERT's performance was directionally less accurate than Wikipedia-trained word2vec: using a more advanced model did not improve performance on this task. Figure \ref{fig:halfs} shows the models' ratings for the `r pairs_total` nouns and their typical and atypical adjectives alongside scaled average human ratings. 
 
-```{r halfs, cache=F, fig.align = "center", fig.width = 7, fig.cap = 'Plots of word2vec and BERT noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").'}
+```{r halfs, cache=F, fig.align = "center", fig.width = 6, fig.cap = 'Plots of word2vec noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").'}
 
 halves_data %>%
-  filter(measure %in% c("Wiki word2vec", "LDP word2vec", "BERT")) %>%
+  filter(measure %in% c("Wiki word2vec", "LDP word2vec")) %>%
   mutate(measure = factor(measure, 
-                          levels = c("LDP word2vec", "Wiki word2vec", "BERT"))) %>%
+                          levels = c("LDP word2vec", "Wiki word2vec"))) %>%
   ggplot(aes(x = typicality, y = score, group = noun)) +
   facet_wrap(~measure) +
   geom_point(alpha = .5, position=position_dodge(0.06), color = "light gray") +
   geom_line(alpha = .5, color = "light gray", position=position_dodge(0.06)) +
   geom_line(data=human, aes(x=typicality, y=mean, group=NA), color="black", linetype="dashed") +
   geom_point(data=human, aes(x=typicality, y=mean, group=NA), color="black") +
-  geom_line(data=means %>% filter(measure %in% c("LDP word2vec", "Wiki word2vec", "BERT")),
+  geom_line(data=means %>% filter(measure %in% c("LDP word2vec", "Wiki word2vec")),
             aes(x=typicality, y=mean, group=NA), color="steelblue", size=.8) +
-  geom_point(data=means %>% filter(measure %in% c("LDP word2vec", "Wiki word2vec", "BERT")), 
+  geom_point(data=means %>% filter(measure %in% c("LDP word2vec", "Wiki word2vec")), 
              aes(x=typicality, y=mean, group=NA), color="steelblue") +
-  labs(x = "Binned Human-Rated Typicality", y = "Cosine Similarity for word2vec \n Probability for BERT") +
+  labs(x = "Binned Human-Rated Typicality", y = "Cosine Similarity") +
   theme_few() +
   coord_cartesian(ylim=c(-0.17,1)) +
   annotation_custom(grob) +
@@ -699,6 +721,42 @@ halves_data %>%
 #ggsave(bertplot, filename = "figs/bert_w2v_plot.png",  width = 8, height = 4, units = "in", dpi = 300, bg = "transparent")
 ```
 
+```{r bert-gpt, cache=F, fig.align = "center", fig.width = 6, fig.cap = 'Plots of BERT and GPT-3 noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").'}
+
+halves_data %>%
+  filter(measure %in% c("BERT", "GPT-3")) %>%
+  mutate(measure = factor(measure, 
+                          levels = c("BERT", "GPT-3"))) %>%
+  ggplot(aes(x = typicality, y = score, group = noun)) +
+  facet_wrap(~measure) +
+  geom_point(alpha = .5, position=position_dodge(0.06), color = "light gray") +
+  geom_line(alpha = .5, color = "light gray", position=position_dodge(0.06)) +
+  geom_line(data=human, aes(x=typicality, y=mean, group=NA), color="black", linetype="dashed") +
+  geom_point(data=human, aes(x=typicality, y=mean, group=NA), color="black") +
+  geom_line(data=means %>% filter(measure %in% c("BERT", "GPT-3")),
+            aes(x=typicality, y=mean, group=NA), color="steelblue", size=.8) +
+  geom_point(data=means %>% filter(measure %in% c("BERT", "GPT-3")), 
+             aes(x=typicality, y=mean, group=NA), color="steelblue") +
+  labs(x = "Binned Human-Rated Typicality", y = "Probability for BERT \n Rating for GPT-3") +
+  theme_few() +
+  coord_cartesian(ylim=c(-0.17,1)) +
+  annotation_custom(grob) +
+  annotation_custom(grob2) +
+  scale_x_discrete(labels= typicality_axis, expand = c(.2, .2)) +
+  theme(
+    strip.background =element_rect(fill="transparent"),
+    panel.background = element_rect(fill = "transparent"), # bg of the panel
+    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+    panel.grid.major = element_blank(), # get rid of major grid
+    panel.grid.minor = element_blank(), # get rid of minor grid
+    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
+    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
+    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+)
+
+#ggsave(bertplot, filename = "figs/bert_w2v_plot.png",  width = 8, height = 4, units = "in", dpi = 300, bg = "transparent")
+```
 
 ```{r pairs_tab, eval = FALSE}
 pair_tab <- high_low_pairs %>%
