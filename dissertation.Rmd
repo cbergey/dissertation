@@ -1,7 +1,7 @@
 ---
 output            : 
   pdf_document: 
-    template: thesis_RF.tex
+    template: thesis_CB.tex
     keep_tex: true
     pandoc_args: ["--top-level-division=chapter"]
     
