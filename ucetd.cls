@@ -28,12 +28,17 @@
 
 % Preliminary sections following the table of contents and preceding the body are front matter
 \newcommand{\etdFrontMatter}[1]{
-	\chapter*{#1}
+	\cleardoublepage
+	\phantomsection
 	\addcontentsline{toc}{chapter}{#1}
+	\chapter*{#1}
 }
 
 % Special front matter that appears before the table of contents
 \newcommand{\etdPreTOCMatter}[1]{
+	\cleardoublepage
+	\phantomsection
+	\phantom{\cite{?}}
 	\chapter*{}
 	\thispagestyle{empty}
 	\begin{center}
@@ -43,13 +48,15 @@
 
 % Starts the main matter of the document
 \newcommand{\etdMainMatter}{
-	\clearpage
+	\cleardoublepage
 	% Switch to arabic numbers on pages
 	\pagenumbering{arabic}
 }
 
 % Commands to follow the title page
 \newcommand{\etdPostTitle}{
+	\cleardoublepage
+	\phantomsection
 	% Setup page numbering
 	\pagenumbering{roman}
 	\addtocounter{page}{1}
@@ -398,6 +405,8 @@
 \let\oldtableofcontents = \tableofcontents
 \renewcommand{\tableofcontents}{
   \begin{singlespace}
+   \cleardoublepage
+  \phantomsection
     \oldtableofcontents
   \end{singlespace}
 }
