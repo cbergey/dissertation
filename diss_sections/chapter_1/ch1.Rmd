@@ -2,7 +2,7 @@ Children learn a tremendous amount about the structure of the world around them 
 
 Two lines of work suggest that they may be surprisingly similar. One compelling area of work is the comparison of semantic structures learned by congenitally blind children to those of their sighted peers. In several domains that would seem at first blush to rely heavily on visual information, such as verbs of visual perception (e.g., *look*, *see*), blind children and adults make semantic similarity judgments that mirror their sighted peers [@landau2009; @bedny2019]. A second line of evidence supporting the similarity of information in perception and language is the broad success of statistical models trained on language alone in approximating human judgments across a variety of domains [@landauer1997; @mikolov2013; @devlin2018]. Even more compellingly, models trained on both language and perceptual features for some words can infer the perceptual features of linguistically related words entirely from the covariation of language and perception [@johns2012]. 
 
-Still, there is reason to believe that some semantic features may be harder to learn from language than these findings suggest. This is because we rarely use language merely to provide running commentary on the world around us; instead, we use language to talk about things that diverge from our expectations or those of our conversational partner [@grice1975logic]. People tend to avoid being over- or under-informative when they speak. In particular, when referring to objects, people are informative with respect to both the referential context and the typical features of the referent [@westerbeek2015; @rubio-fernandez2016]. People tend to refer to an object that is typical of its category with a bare noun (e.g., calling an orange carrot "a carrot"), but often specify when an object has an atypical feature (e.g, "a purple carrot"). Given these communicative pressures, naturalistic language statistics may provide surprisingly little evidence about what is typical [@willits2008]. 
+Still, there is reason to believe that some semantic features may be harder to learn from language than these findings suggest. This is because we rarely use language merely to provide running commentary on the world around us; instead, we use language to talk about things that diverge from our expectations or those of our conversational partner [@grice1975logic]. People tend to avoid being over- or under-informative when they speak. In particular, when referring to objects, people are informative with respect to both the referential context and the typical features of the referent [@westerbeek2015; @rubio-fernandez_how_2016]. People tend to refer to an object that is typical of its category with a bare noun (e.g., calling an orange carrot "a carrot"), but often specify when an object has an atypical feature (e.g, "a purple carrot"). Given these communicative pressures, naturalistic language statistics may provide surprisingly little evidence about what is typical [@willits2008]. 
 
 <!-- This is because people rarely use language merely to provide running comentary on the world around them. Instead, we use language to talk about things we find interesting--things that are surprising, exciting, or otherwise divergent from our conversational partners' expectations [@grice1975].  -->
 <!--When faced with an object that is typical of its kind, speakers overwhelmingly refer to that object with a bare noun- e.g., calling a banana that is yellow "a banana." But, when faced with an object that is atypical of its kind, speakers consistently produce description as well- e.g., calling a banana that is blue "a blue banana." This allows speakers to be as informative as needed, providing no description when it should be assumed (yellow banana) and providing information when it is unexpected (blue banana). These two empirical, lab-based phenomena demonstrate communicative pressures which, at scale, could mean naturalistic language is structured to contain much more description of what is atypical.-->
@@ -106,6 +106,7 @@ ldp_coded <- ldp %>%
   rename(mean_rating = mean_typ) %>%
   filter(!is.na(mean_rating))
 ```
+
 ```{r read-cabnc}
 all_corpora <- read_csv(here("data/ch1/all_cabnc_ldpParentandKid_conc_unique_UTTS.csv"))
 
@@ -143,7 +144,8 @@ cabnc <- all_corpora %>%
   rename(mean_rating = mean_typ) %>%
   filter(!is.na(mean_rating))
 ```
-```{r}
+
+```{r read-judgments}
 all_pairs <- subj_data %>%
   distinct(adjective, noun, article, adj_article)
 
@@ -503,7 +505,7 @@ This usage pattern aligns with the idea that language is used informatively in r
 
 Much information can be gleaned from language that does not seem available at first glance. From language alone, simple distributional learning models can recover enough information to perform comparably to non-native college applicants on the Test of English as a Foreign Language [@landauer1997]. Recently, @lewis2019 demonstrated that even nuanced feature information may be learnable through distributional semantics alone, without any complex inferential machinery. We take a similar approach to ask whether a distributional semantics model trained on the language children hear can capture typical feature information. 
 
-```{r word2vec cors}
+```{r word2vec-cors}
 ldp_cor <- wtd.cor(all_judgments %>% pull(mean_typ),
                     all_judgments %>% pull(ldp_similarity)) %>%
   as_tibble()
@@ -514,6 +516,10 @@ wiki_cor <- wtd.cor(all_judgments %>% pull(mean_typ),
 
 bert_cor <- wtd.cor(all_judgments %>% pull(mean_typ),
                     all_judgments %>% pull(bert_prob)) %>%
+  as_tibble()
+
+gpt3_cor <- wtd.cor(all_judgments %>% pull(mean_typ),
+                    all_judgments %>% pull(gpt3_score)) %>%
   as_tibble()
 
 models_cor <- wtd.cor(all_judgments %>% pull(ldp_similarity),
@@ -534,12 +540,16 @@ wiki_cor_p <- wiki_cor %>% pull(p.value) %>% printp()
 bert_cor_estimate <- bert_cor %>% pull(correlation)
 bert_cor_p <- bert_cor %>% pull(p.value) %>% printp()
 
+gpt3_cor_estimate <- gpt3_cor %>% pull(correlation)
+gpt3_cor_p <- gpt3_cor %>% pull(p.value) %>% printp()
+
 w2v_models_cor_estimate <- models_cor %>% pull(correlation)
 w2v_models_cor_p <- models_cor %>% pull(p.value) %>% printp()
 w2v_bert_cor_estimate <- bert_wikiw2v_cor %>% pull(correlation)
 w2v_bert_cor_p <- bert_wikiw2v_cor %>% pull(p.value) %>% printp()
 
 ```
+
 ```{r, eval = FALSE}
 split_half <- tidy_turk_counts %>%
   mutate(rater = as.numeric(gsub("x", "", rater))) %>%
@@ -569,12 +579,14 @@ tidy_turk_counts_for_plots %>%
   summarise(cor = cor(prediction, turker_judgment))
 
 ```
+
 ```{r word2vec-pairs}
 min_max_ratings <- mean_ratings %>%
   group_by(noun) %>%
   mutate(min_typ = min(mean_typ), max_typ = max(mean_typ)) %>%
   distinct(noun, min_typ, max_typ) %>%
   filter(min_typ != max_typ, max_typ >= 5, min_typ <= 3) 
+
 
 high_low_pairs <- mean_ratings %>%
   filter(noun %in% min_max_ratings$noun) %>%
@@ -598,7 +610,7 @@ correct_orders <- high_low_all %>%
   select(-n) %>%
   pivot_longer(cols = c(ldp_similarity, wiki_similarity, bert_prob, gpt3_score), 
                names_to = "measure", values_to = "similarity") %>%
-  select(-adjective, -mean_typ) %>%
+  select(-adjective, -mean_typ, -gpt3_judgment) %>%
   pivot_wider(names_from = "typicality", values_from = "similarity") %>%
   mutate(correct = high - low > 0) %>%
   filter(!is.na(correct)) %>%
@@ -632,19 +644,20 @@ bert_binom <- binom.test(bert_correct, pairs_total)$p.value %>%
 gpt3_binom <- binom.test(gpt3_correct, pairs_total)$p.value %>%
   printp()
 ```
-```{r}
+```{r typ-plots-compute}
 
 # The black dotted line shows average human typicality ratings (scaled) for these items. The blue line shows how well our models do at capturing this trend, with grey lines representing individual pairs
 
 halves_data <- high_low_all %>%
-  pivot_longer(cols = c(mean_typ, wiki_similarity, ldp_similarity, bert_prob),
+  select(-gpt3_judgment) %>%
+  pivot_longer(cols = c(mean_typ, wiki_similarity, ldp_similarity, bert_prob, gpt3_score),
               names_to = "measure", values_to = "score") %>%
   mutate(measure = factor(measure, 
                           levels = c("mean_typ", "ldp_similarity", 
                                      "wiki_similarity", "bert_prob", "gpt3_score"), 
                           labels = c("Human", "LDP word2vec", 
                                      "Wiki word2vec", "BERT", "GPT-3"))) %>%
-  mutate(score = if_else(measure=="Human", score/7, score)) 
+  mutate(score = if_else(measure=="Human", (score - 1)/6, score)) 
 
 human <- halves_data %>%
   filter(measure =="Human") %>%
@@ -654,12 +667,13 @@ human <- halves_data %>%
 means <- halves_data %>%
     group_by(measure, typicality) %>% 
     summarise(mean=mean(score, na.rm=T)) %>%
-    filter(measure != "Human")
+  mutate(mean = if_else(measure=="GPT-3", (mean - 1)/6, mean)) %>%
+    filter(measure != "Human") 
 
 grob <- grobTree(textGrob("Human ratings \n (scaled)", x=0.97,  y=0.85, hjust=1,
   gp=gpar(col="Black", fontsize=9, fontface="italic")))
   
-grob2 <- grobTree(textGrob("Model average", x=.96,  y=0.33, hjust=1,
+grob2 <- grobTree(textGrob("Model average", x=.96,  y=0.43, hjust=1,
   gp=gpar(col="steelblue", fontsize=9, fontface="italic")))
 
 typicality_axis <- c("Low Typicality", "High Typicality")
@@ -674,15 +688,17 @@ We used the continuous-bag-of-words (CBOW) implementation of word2vec in the `ge
 
 If the model captures information about the typical features of objects, we should see that the model's noun-adjective word pair similarities are correlated with the typicality ratings we elicited from human raters. For a second comparison, we also used an off-the-shelf implementation of word2vec trained on Wikipedia [@mikolov2018]. While the Language Development Project corpus likely underestimates the amount of structure in children's linguistic input, Wikipedia likely overestimates it.
 
-While word2vec straightforwardly represents what can be learned about word similarity by associating words with similar contexts, it does not represent the cutting edge of language modeling. Perhaps a more sophisticated model, trained on a larger corpus, would represent these typicalities better. To test this, we asked how BERT [@devlin2018], a masked language model trained on English Wikipedia and BookCorpus, represents typicality. BERT does not directly provide similarity metrics between words, so to ask this, we must embed the pairs in a phrase context. We gave BERT phrases of the form "____ apple", and asked it the probability of different adjectives filling the empty slot. Because BERT has more complex training objectives and is trained on a much larger corpus than word2vec, results from BERT likely do not straightforwardly represent the information available to children in language. However, results from BERT can indicate the challenges language models face in representing world knowledge when the language people use emphasizes remarkable rather than typical features.
+While word2vec straightforwardly represents what can be learned about word similarity by associating words with similar contexts, it does not represent the cutting edge of language modeling. Perhaps more sophisticated models trained on larger corpora would represent these typicalities better. To test this, we asked how BERT [@devlin2018] and GPT-3 [@brown_language_2020] represent typicality. BERT is a masked language model trained on BookCorpus and English Wikipedia, which represents the probability of words occurring in slots in a phrase. We gave BERT phrases of the form "____ apple", and asked it the probability of different adjectives filling the empty slot. GPT-3 is a generative language model trained on large quantities of internet text, including Wikipedia, book corpora, and web page text from crawling the internet. Because it is a generative language model, we can ask GPT-3 the same question we asked human participants directly and it can generate a text response. We prompted the `davinci-text-003` instance of GPT-3 questions of the form: "You are doing a task in which you rate how common it is for certain things to have certain features. You respond out of the following options: Never, Rarely, Sometimes, About half the time, Often, Almost always, or Always. How common is it for a cow to be a brown cow?" Because BERT and GPT-3 have more complex training objectives and are trained on more and different kinds of language than what children hear, results from these models likely do not straightforwardly represent the information available to children in language. However, results from BERT and GPT-3 can indicate the challenges language models face in representing world knowledge when the language people use emphasizes remarkable rather than typical features.
 
 ### Results
 
-We find that similarities in the model trained on the Language Development Project corpus have near zero correlation with human adjective–noun typicality ratings ($r =$ `r ldp_cor_estimate`, $p =$ `r ldp_cor_p`). However, our model does capture other meaningful information about the structure of language, such as similarity. Comparing with pre-existing large-scale human similarity judgements for word pairs, our model shows significant correlations (correlation with wordsim353 similarities of noun pairs, 0.28; correlation with simlex similarities of noun, adjective, and verb pairs, 0.16). This suggests that statistical patterns in child-directed speech are likely insufficient to encode information about the typical features of objects, despite encoding at least some information about word meaning more broadly. 
+We find that similarities in the model trained on the Language Development Project corpus have near zero correlation with human adjective–noun typicality ratings ($r =$ `r ldp_cor_estimate`, $p =$ `r ldp_cor_p`). However, our model does capture other meaningful information about the structure of language, such as similarity within part of speech categories. Comparing with pre-existing large-scale human similarity judgements for word pairs, our model shows significant correlations (correlation with wordsim353 similarities of noun pairs, 0.28; correlation with simlex similarities of noun, adjective, and verb pairs, 0.16). This suggests that statistical patterns in child-directed speech are likely insufficient to encode information about the typical features of objects, despite encoding at least some information about word meaning more broadly. 
 
-However, the corpus on which we trained this model was small; perhaps our model did not get enough language to draw out the patterns that would reflect the typical features of objects. To test this possibility, we asked whether word vectors trained on a much larger corpus—English Wikipedia—correlate with typicality ratings. This model's similarities were significantly correlated with human judgments, although the strength of the correlation was still fairly weak ($r =$ `r wiki_cor_estimate`, $p$ `r wiki_cor_p`). How does an even larger and more sophisticated language model, BERT, fare? Like Wikipedia-trained word2vec, BERT's probabilities were significantly correlated with human judgments, though weakly so ($r =$ `r bert_cor_estimate`, $p$ `r bert_cor_p`). 
+However, the corpus on which we trained this model was small; perhaps our model did not get enough language to draw out the patterns that would reflect the typical features of objects. To test this possibility, we asked whether word vectors trained on a much larger corpus—English Wikipedia—correlate with typicality ratings. This model's similarities were significantly correlated with human judgments, although the strength of the correlation was still fairly weak ($r =$ `r wiki_cor_estimate`, $p$ `r wiki_cor_p`). How larger and more sophisticated language models fare? Like Wikipedia-trained word2vec, BERT's probabilities were significantly correlated with human judgments, though weakly so ($r =$ `r bert_cor_estimate`, $p$ `r bert_cor_p`). However, GPT-3's ratings were much better aligned with human judgments ($r =$ `r gpt3_cor_estimate`, $p$ `r gpt3_cor_p`). 
 
-One possible confound in these analyses is that the similarity judgments produced by our models reflect many dimensions of similarity, but our human judgments reflect only typicality. To accommodate this, we performed a second analysis in which we considered only the subset of `r pairs_total` nouns that had both a typical (rated as at least "often") and an atypical (rated as at most "sometimes") adjective. We then asked whether the models rated the typical adjective as more similar to the noun it modified than the atypical adjective. The LDP model correctly classified `r ldp_correct` out of `r pairs_total` (`r ldp_correct / pairs_total`), which was not different from chance ($p =$ `r ldp_binom`). The Wikipedia-trained word2vec model correctly classified `r wiki_correct` out of `r pairs_total` (`r wiki_correct / pairs_total`), which was better than chance according to a binomial test, but not highly accurate ($p =$ `r wiki_binom`). BERT correctly classified `r bert_correct` out of `r pairs_total` (`r bert_correct / pairs_total`), which is significantly better than chance ($p =$ `r bert_binom`). However, BERT's performance was directionally less accurate than Wikipedia-trained word2vec: using a more advanced model did not improve performance on this task. Figure \ref{fig:halfs} shows the models' ratings for the `r pairs_total` nouns and their typical and atypical adjectives alongside scaled average human ratings. 
+Similarity judgments produced by our models reflect many dimensions of similarity, but our human judgments reflect only typicality. To account for this fact and control for semantic differences among the nouns in our set, we performed a second analysis in which we considered only the subset of `r pairs_total` nouns that had both a high-typicality (rated as at least "often") and a low-typicality (rated as at most "sometimes") adjective. We then asked whether the word2vec models rated the high-typicality adjective as more similar to the noun it modified than the low-typicality adjective. The LDP model correctly classified `r ldp_correct` out of `r pairs_total` (`r ldp_correct / pairs_total`%), which was not different from chance ($p =$ `r ldp_binom`). The Wikipedia-trained word2vec model correctly classified `r wiki_correct` out of `r pairs_total` (`r wiki_correct / pairs_total`%), which was better than chance according to a binomial test, but not highly accurate ($p =$ `r wiki_binom`). Figure \ref{fig:halfs} shows the word2vec models' similarities for the `r pairs_total` nouns and their typical and atypical adjectives alongside scaled average human ratings. 
+
+The analogous analysis on BERT asks whether the model rates the high-typicality adjective as more likely to come before the noun than the low typicality adjective (e.g., P("red") > P("brown") in "____ apple"). BERT correctly classified `r bert_correct` out of `r pairs_total` (`r bert_correct / pairs_total`%), which is significantly better than chance ($p =$ `r bert_binom`). However, BERT's performance was directionally less accurate than Wikipedia-trained word2vec: though BERT is a more sophisticated model, it does not capture adjective-noun typicality better than word2vec in this analysis. GPT-3 performs much better than BERT and the word2vec models, with `r gpt3_correct` out of `r pairs_total` (`r gpt3_correct / pairs_total`%), significantly better than chance by a binomial test ($p =$ `r gpt3_binom`). Figure \ref{fig:bert-gpt} shows BERT and GPT-3 ratings for the `r pairs_total` nouns and their typical and atypical adjectives alongside scaled average human ratings. 
 
 ```{r halfs, cache=F, fig.align = "center", fig.width = 6, fig.cap = 'Plots of word2vec noun-adjective similarities for nouns for which there was at least one atypical adjective (rated at most "sometimes"), and at least one typical adjective (rated at least "often").'}
 
@@ -725,6 +741,7 @@ halves_data %>%
 
 halves_data %>%
   filter(measure %in% c("BERT", "GPT-3")) %>%
+  mutate(score = if_else(measure=="GPT-3", (score - 1)/6, score)) %>%
   mutate(measure = factor(measure, 
                           levels = c("BERT", "GPT-3"))) %>%
   ggplot(aes(x = typicality, y = score, group = noun)) +
@@ -737,7 +754,7 @@ halves_data %>%
             aes(x=typicality, y=mean, group=NA), color="steelblue", size=.8) +
   geom_point(data=means %>% filter(measure %in% c("BERT", "GPT-3")), 
              aes(x=typicality, y=mean, group=NA), color="steelblue") +
-  labs(x = "Binned Human-Rated Typicality", y = "Probability for BERT \n Rating for GPT-3") +
+  labs(x = "Binned Human-Rated Typicality", y = "Probability for BERT \n Scaled rating for GPT-3") +
   theme_few() +
   coord_cartesian(ylim=c(-0.17,1)) +
   annotation_custom(grob) +
@@ -787,9 +804,9 @@ print(pair_tab, type = "latex", comment = F, table.placement = "tb", floating = 
 
 Language provides children a rich source of information about the world. However, this information is not always transparently available: because language is used to comment on the atypical, it does not perfectly mirror the world. Among adult conversational partners whose world knowledge is well-aligned, this principle allows people to converse informatively and avoid redundancy. But between a child and caregiver whose world knowledge is asymmetric, this pressure competes with other demands: what is minimally informative to an adult may be misleading to a child. Our results show that this pressure structures language to create a peculiar learning environment, one in which caregivers predominantly point out the atypical features of things. 
 
-How, then, do children learn about the typical features of things? While younger children may gain an important foothold from hearing more description of typical features, they still face language dominated by atypical description. When we looked at more nuanced ways of extracting information from language (which may or may not be available to the developing learner), we found that models of distributional semantics capture little typical feature information.
+How, then, do children learn about the typical features of things? While younger children may gain an important foothold from hearing more description of typical features, they still face language dominated by atypical description. When we looked at more nuanced ways of extracting information from language (which may or may not be available to the developing learner), we found that two word2vec models, one trained on child-directed language and one trained on adult-adult language, did not capture typicality very well. Even BERT, a language model trained on much more text and with a more complex architecture, did not perform better than a Wikipedia-trained word2vec model in reflecting typicality. This may be because these models are designed to capture language statistics, with BERT in particular capturing which words are likely to occur following one another—and as we show in our corpus analyses, adjective-noun pairs that come together often reflect atypicality rather than typicality. Note that a consistent *inverse* relationship—rating high-typicality pairs as *less* similar or *less* probable—would also be evidence that these models capture typicality, but the word2vec models and BERT do not evince this pattern either. However, GPT-3 captured typicality quite well, suggesting that the way people structure language to emphasize atypicality is not necessarily an impediment for much larger models' representation of typicality. Further work remains to understand how GPT-3 comes to represent typicality relationships so much better than the smaller models we tested. Overall, a large language model trained on text much greater in quantity and different in quality from child-directed language did capture adjective-noun typicality well, but models with simpler learning mechanisms and language input more similar to what is available to children did not.
 
-Of course, perceptual information from the world may simplify this problem. In many cases, perceptual information may swamp information from language; children likely see enough orange carrots in the world to outweigh hearing "purple carrot.” It remains unclear, however, how children learn about categories for which they have scarcer evidence. Indeed, language information likely swamps perceptual information for many other categories, such as abstract concepts or those that cannot be learned about by direct experience. If such concepts pattern similarly to the concrete objects analyzed here, children are in a particularly difficult bind. 
+Of course, perceptual information from the world may simplify the problem of learning about typicality. In many cases, perceptual information may swamp information from language; children likely see enough orange carrots in the world to outweigh hearing "purple carrot." It remains unclear, however, how children learn about categories for which they have scarcer evidence. Indeed, language information likely swamps perceptual information for many other categories, such as abstract concepts or those that cannot be learned about by direct experience. If such concepts pattern similarly to the concrete objects analyzed here, children are in a particularly difficult bind. 
 
 It is also possible that other cues from language and interaction provide young learners with clues to what is typical or atypical, and these cues are uncaptured by our measure of usage statistics. Caregivers may highlight when a feature is typical by using certain syntactic constructions, such as generics (e.g., "tomatoes are red"). Caregivers may also mark the atypicality of a feature, for example demonstrating surprise. Such cues from language and the interaction may provide key information in some cases; however, given the sheer frequency of atypical descriptors, it seems unlikely that they are consistently well-marked.
 

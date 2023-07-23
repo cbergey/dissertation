@@ -215,7 +215,6 @@ plot <- ggplot(e3_mean_data %>% mutate(searchtype = factor(searchtype, levels = 
           method = list(dl.trans(x = x - 1), "last.points", cex=.7)) +
   scale_color_ptol() +
 theme(
-    strip.background =element_rect(fill="transparent"),
     panel.background = element_rect(fill = "transparent"), # bg of the panel
     plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
     panel.grid.major = element_blank(), # get rid of major grid
@@ -223,7 +222,9 @@ theme(
     legend.background = element_rect(fill = "transparent"), # get rid of legend bg
     legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
     legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
-    axis.line = element_line(colour = "black") # adding a black line for x and y axis
+    axis.line = element_line(colour = "black"), # adding a black line for x and y axis
+    strip.background = element_blank(),
+    strip.text.x = element_blank()
 )
 
 #ggsave(plot, filename = "e2_plot.png",  width = 8, height = 4, units = "in", dpi = 300, bg = "transparent")
@@ -243,4 +244,4 @@ To validate the model we developed for Experiment 1, we compared its estimates u
 
 In Experiment 2, we replicated the main finding of interest in Experiment 1: when a novel object's feature is described, people infer that the feature is rarer of its category than when it goes unmentioned. Again, this effect was consistent across both size and color adjectives, and people did not substantially adjust this inference based on how necessary the description was to distinguish among potential referents. We also added an alien language condition, in which the entire referring expression was unintelligible to participants, to probe people's priors on feature typicality. We found that in the alien language condition, people judged features to be roughly between the adjective utterance and no adjective utterance conditions, and significantly different from the no adjective utterance condition. In the alien language condition, people's prevalence judgments were roughly around our model's prevalence judgments (50%) after observing the objects on each trial and before any inferences about the utterance.
 
-The similarity of people's prevalence judgments in the alien language condition and the adjective condition raises the question: is this effect driven by an atypicality inference in the adjective conditions, or a *typicality* inference when the feature is unmentioned? Our results suggest that it is a bit of both. When someone mentions an object without extra description, the listener can infer that its features are likely more typical than their prior; when they use description, they can infer that its features are likely less typical. Because using an extra word--an adjective--is generally not thought of as the default way to refer to something, this effect is still best described as a contrastive inference of *atypicality* when people use description. However, the fact that people infer high typicality when an object is referred to without description suggests that, in some sense, there is no neutral way to refer: people will make broader inferences about a category from even simple mentions of an object.
+The similarity of people's prevalence judgments in the alien language condition and the adjective condition raises the question: is this effect driven by an atypicality inference in the adjective conditions, or a *typicality* inference when the feature is unmentioned? Our results suggest that it is a bit of both. When someone mentions an object without extra description, the listener can infer that its features are likely more typical than their prior; when they use description, they can infer that its features are likely less typical. Because using an extra word---an adjective---is generally not thought of as the default way to refer to something, this effect is still best described as a contrastive inference of *atypicality* when people use description. However, the fact that people infer high typicality when an object is referred to without description suggests that, in some sense, there is no neutral way to refer: people will make broader inferences about a category from even simple mentions of an object.
