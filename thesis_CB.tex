@@ -59,8 +59,6 @@
 
 
 %% Make the various tables of contents
-\newpage
-\phantomsection
 \tableofcontents
 \phantomsection
 \newpage
@@ -73,11 +71,13 @@
 
 \acknowledgments
 % Enter Acknowledgements here
-Each chapter in this dissertation represents collaborative work. The collaborators on each chapter are as follows: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. None of this work could have happened without Ben, Dan, and Jordyn, and anything this dissertation gets right can be credited to their intellectual contributions to these chapters and to my life.
+Each chapter in this dissertation represents collaborative work. The collaborators on each chapter are: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. None of this work could have happened without Ben, Dan, and Jordyn, and anything this dissertation gets right can be credited to their intellectual contributions to these chapters and to my life.
 
 Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for all they have given me: frameworks to think in, an intellectual community to be a part of, and guidance to follow (or not). There are few gifts better than a new way to see the world.
 
-I am deeply grateful for people who have given feedback on this work along the way: Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee. Thanks also to reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, and the Midwestern Cognitive Science Conference, and the journal Cognition.
+Susan, you have been a deep intellectual influence on me; I count myself lucky that you took me in. Dan, you gave me my theoretical foundations—I hope to carry them forward. Marisa, you shook up my thinking in ways just beginning to propagate through my work. Simon DeDeo, I never know where our meetings will go. All of you gather people together to think, and I'm thankful to have been one.
+
+I am deeply grateful for people who have given feedback on this work along the way: Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee. Thanks also to reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the Midwestern Cognitive Science Conference, the Dubrovnik Conference on Cognitive Science, the meeting of the Society for Research in Child Development, and the journal Cognition.
 
 Many people made up my life while I wrote this—too many to mention. I'm pretty sure I can't think without talking to people, and you all are my best interlocutors. A few choice words for choice people:
 
@@ -87,9 +87,9 @@ To Julia, for being my best critic—seeing what the best of something can be; T
 
 To Scott, who has seen it all happen, for talking with me all this time; To Russell, here's to us; To Jane and Erica, my oldest friends;
 
-To Ben, for tackling our research and our friendship; To Hannah, for being strange and remembering why we like each other; To Ya\u{g}mur, for challenging and care in equal measure; 
+To Ben, for bearing with me in research and in friendship; To Hannah, to being strange and remembering why we like each other; To Ya\u{g}mur, for challenging and care in equal measure; 
 
-To Casey, for learning to teach together, and for the jokes; To Ashley, we did it; To Jimmy, you kept me from taking it all too seriously;
+To Casey, for learning to teach together, and for the jokes; To Ashley, we did it; To Jimmy, for not taking it all too seriously;
 
 To Ruthe, for telling me you can do whatever you want and being right; To Ivan, for bringing people together; To Mike, for arguing with me and sitting with me.
 
@@ -97,7 +97,7 @@ I love you all. None of you will ever get rid of me.
 
 \abstract
 % Enter Abstract here
-We mention what is remarkable while letting the unremarkable go unsaid. Thus, while language can tell us a lot about the world, it does not veridically reflect the world: people are more likely to talk about atypical features (e.g., ``purple carrot'') than typical features (e.g., ``[orange] carrot''). In this dissertation, I characterize how people selectively describe the features of things and examine the implications of this selective description for how children and adults learn from language. In Chapter 1, I show that adults speaking to other adults, caregivers speaking to children, and children themselves tend to mention the atypical more than the typical features of concrete things. Language is structured to emphasize what is atypical—so how can one learn about what things are typically like from language? In this chapter I also show that language models that use word co-occurrence to derive word meaning do not capture the typicality of adjective–noun pairs well. However, people can learn in more complex ways: in Chapter 2, I show that people infer that mentioned features are atypical. That is, when a novel object is called a ``purple toma,'' adults infer that tomas are less commonly purple in general. This inference is captured by a model in the Rational Speech Act framework that posits that listeners reason about speakers' communicative goals. In Chapter 3, I ask: do children themselves infer that mentioned features are atypical? I find preliminary evidence that 5- to 6-year-old children who reliably respond on our typicality measure can make these inferences, and map out possibilities to further test this question with young children. Overall, this dissertation examines how language does not directly reflect the world, but selectively picks out remarkable facets of it, and what this implies for how adults, children, and language models learn.
+We mention what is remarkable while letting the unremarkable go unsaid. Thus, while language can tell us a lot about the world, it does not veridically reflect the world: people are more likely to talk about atypical features (e.g., ``purple carrot'') than typical features (e.g., ``[orange] carrot''). In this dissertation, I characterize how people selectively describe the features of things and examine the implications of this selective description for how children and adults learn from language. In Chapter 1, I show that adults speaking to other adults, caregivers speaking to children, and children themselves tend to mention the atypical more than the typical features of concrete things. Language is structured to emphasize what is atypical—so how can one learn about what things are typically like from language? In this chapter I also show that distributional semantics models that use word co-occurrence to derive word meaning (word2vec) do not capture the typicality of adjective–noun pairs well. I also examine the performance of a two more sophisticated language models (BERT and GPT-3); these models have input unlike what children have access to, but provide useful bounds on what typicality information is learnable from using simple training objectives on language alone. However, people can learn about typicality in other ways: in Chapter 2, I show that people infer that mentioned features are atypical. That is, when a novel object is called a ``purple toma,'' adults infer that tomas are less commonly purple in general. This inference is captured by a model in the Rational Speech Act framework that posits that listeners reason about speakers' communicative goals. In Chapter 3, I ask: do children themselves infer that mentioned features are atypical? I find preliminary evidence that 5- to 6-year-old children who reliably respond on our typicality measure tend toward making contrastive rather than associative inferences, and map out possibilities to further test this question with young children. Overall, this dissertation examines how language does not directly reflect the world, but selectively picks out remarkable facets of it, and what this implies for how adults, children, and language models learn.
 
 \mainmatter
 % Main body of text follows

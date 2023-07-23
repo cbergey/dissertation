@@ -36,9 +36,6 @@
 
 % Special front matter that appears before the table of contents
 \newcommand{\etdPreTOCMatter}[1]{
-	\cleardoublepage
-	\phantomsection
-	\phantom{\cite{?}}
 	\chapter*{}
 	\thispagestyle{empty}
 	\begin{center}
