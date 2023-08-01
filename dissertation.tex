@@ -73,21 +73,21 @@
 % Enter Acknowledgements here
 Each chapter in this dissertation represents collaborative work. The collaborators on each chapter are: Chapter 1, Benjamin Morris and Dan Yurovsky; Chapter 2, Dan Yurovsky; Chapter 3, Jordyn Martin. None of this work could have happened without Ben, Dan, and Jordyn, and anything this dissertation gets right can be credited to their intellectual contributions to these chapters and to my life.
 
-Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky for all they have given me: frameworks to think in, an intellectual community to be a part of, and guidance to follow (or not). There are few gifts better than a new way to see the world.
+Thank you to my committee, Susan Goldin-Meadow, Marisa Casillas, Howard Nusbaum, and Dan Yurovsky, for all they have given me: frameworks to think in, an intellectual community to be a part of, and guidance to follow (or not). There are few gifts better than a new way to see the world.
 
-Susan, you have been a deep intellectual influence on me; I count myself lucky that you took me in. Dan, you gave me my theoretical foundations—I hope to carry them forward. Marisa, you shook up my thinking in ways just beginning to propagate through my work. Simon DeDeo, I never know where our meetings will go. All of you gather people together to think, and I'm thankful to have been one.
+Susan, you have been a deep intellectual influence on me; I count myself lucky that you took me in. Dan, you gave me my theoretical foundations—I hope to carry them forward. Marisa, you shook up my thinking in ways just beginning to take shape in my work. Simon DeDeo, I never know where our meetings will go. All of you gather people together to think, and I'm thankful to have been one of them.
 
-I am deeply grateful for people who have given feedback on this work along the way: Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee. Thanks also to reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the Midwestern Cognitive Science Conference, the Dubrovnik Conference on Cognitive Science, the meeting of the Society for Research in Child Development, and the journal Cognition.
+I am deeply grateful to people who have given feedback on this work along the way: Ming Xiang, Benjamin Morris, Ashley Leung, Michael C. Frank, Judith Degen, Stephan Meylan, Robert Hawkins, and Ruthe Foushee. Thanks also to reviewers and attendees of Experiments in Linguistic Meaning, the meeting of the Cognitive Science Society, the Midwestern Cognitive Science Conference, the Dubrovnik Conference on Cognitive Science, the meeting of the Society for Research in Child Development, and the journal Cognition.
 
 Many people made up my life while I wrote this—too many to mention. I'm pretty sure I can't think without talking to people, and you all are my best interlocutors. A few choice words for choice people:
 
-To Jean and Barry, for the love of thinking and art—you made me and made me who I am; To Matthew, it's a pleasure being siblings with you, wouldn't have it any other way;
+To Jean and Barry, for the love of thinking and art—you made me and made me who I am; To Margaret, your pride means the world; To Matthew, it's a pleasure being siblings with you, wouldn't have it any other way; 
 
-To Julia, for being my best critic—seeing what the best of something can be; To Rosemary, relentless collaborator, you help me keep hold of my self;
+To Julia, you are my best critic—you see what the best of something can be—and always by my side; To Rosemary, for relentlessly collaborating with me, you help me keep hold of my self;
 
 To Scott, who has seen it all happen, for talking with me all this time; To Russell, here's to us; To Jane and Erica, my oldest friends;
 
-To Ben, for bearing with me in research and in friendship; To Hannah, to being strange and remembering why we like each other; To Ya\u{g}mur, for challenging and care in equal measure; 
+To Ben, for bearing with me in research and in friendship; To Hannah, for being strange and remembering why we like each other; To Ya\u{g}mur, for challenging and care in equal measure; 
 
 To Casey, for learning to teach together, and for the jokes; To Ashley, we did it; To Jimmy, for not taking it all too seriously;
 
@@ -97,7 +97,7 @@ I love you all. None of you will ever get rid of me.
 
 \abstract
 % Enter Abstract here
-We mention what is remarkable while letting the unremarkable go unsaid. Thus, while language can tell us a lot about the world, it does not veridically reflect the world: people are more likely to talk about atypical features (e.g., ``purple carrot'') than typical features (e.g., ``[orange] carrot''). In this dissertation, I characterize how people selectively describe the features of things and examine the implications of this selective description for how children and adults learn from language. In Chapter 1, I show that adults speaking to other adults, caregivers speaking to children, and children themselves tend to mention the atypical more than the typical features of concrete things. Language is structured to emphasize what is atypical—so how can one learn about what things are typically like from language? In this chapter I also show that distributional semantics models that use word co-occurrence to derive word meaning (word2vec) do not capture the typicality of adjective–noun pairs well. I also examine the performance of a two more sophisticated language models (BERT and GPT-3); these models have input unlike what children have access to, but provide useful bounds on what typicality information is learnable from using simple training objectives on language alone. However, people can learn about typicality in other ways: in Chapter 2, I show that people infer that mentioned features are atypical. That is, when a novel object is called a ``purple toma,'' adults infer that tomas are less commonly purple in general. This inference is captured by a model in the Rational Speech Act framework that posits that listeners reason about speakers' communicative goals. In Chapter 3, I ask: do children themselves infer that mentioned features are atypical? I find preliminary evidence that 5- to 6-year-old children who reliably respond on our typicality measure tend toward making contrastive rather than associative inferences, and map out possibilities to further test this question with young children. Overall, this dissertation examines how language does not directly reflect the world, but selectively picks out remarkable facets of it, and what this implies for how adults, children, and language models learn.
+We mention what is remarkable while letting the unremarkable go unsaid. Thus, while language can tell us a lot about the world, it does not veridically reflect the world: people are more likely to talk about atypical features (e.g., ``purple carrot'') than typical features (e.g., ``[orange] carrot''). In this dissertation, I characterize how people selectively describe the features of things and examine the implications of this selective description for how children and adults learn from language. In Chapter 1, I show that adults speaking to other adults, caregivers speaking to children, and children themselves tend to mention the atypical more than the typical features of concrete things. Language is structured to emphasize what is atypical—so how can one learn about what things are typically like from language? In this chapter I also show that distributional semantics models that use word co-occurrence to derive word meaning (word2vec) do not capture the typicality of adjective–noun pairs well. I also examine the performance of two more sophisticated language models (BERT and GPT-3); these models have input unlike what children have access to, but provide useful bounds on the typicality information learnable from applying simple training objectives to language alone. However, people can learn about typicality in other ways: in Chapter 2, I show that people infer that mentioned features are atypical. That is, when a novel object is called a ``purple toma,'' adults infer that tomas are less commonly purple in general. This inference is captured by a model in the Rational Speech Act framework that posits that listeners reason about speakers' communicative goals. In Chapter 3, I ask: do children themselves infer that mentioned features are atypical? I find preliminary evidence that 5- to 6-year-old children who reliably respond on our typicality measure tend toward making contrastive rather than associative inferences; further work is necessary to confirm this finding and test younger children's contrastive inferences. Overall, this dissertation examines how language does not directly reflect the world, but selectively picks out remarkable facets of it, and what this implies for how adults, children, and language models learn.
 
 \mainmatter
 % Main body of text follows
@@ -212,15 +212,16 @@ Given that speech emphasizes atypical features, learning about
 typicality from language may not be straightforward. In an analysis
 using language models, we examine whether it is possible to learn about
 the typical features of things using the statistical patterns within
-language alone. To do this, we examine whether two language models that
-use word co-occurrence to represent word meaning, word2vec and BERT,
-represent nouns as more similar to or likely to follow their typical
-adjectives than their atypical adjectives. We find that they have fairly
-low accuracy on this task: likely because they use associative methods
-to represent word meaning and their input tends to highlight atypical
+language alone. To do this, we examine whether three language models
+(word2vec, BERT, and GPT-3) capture typicality relationships between
+nouns and adjectives. We find that word2vec and BERT do not represent
+typicality well: likely because they use associative methods to
+represent word meaning and their input tends to highlight atypical
 features, these models represent the relationship between nouns and
-adjectives poorly. We discuss implications for children's word learning
-as well as for language modeling.
+adjectives poorly. However, GPT-3, a larger model trained on much more
+language than children have access to, captures noun-adjective
+typicality fairly accurately. We discuss implications for children's
+word learning as well as for language modeling.
 
 In Chapter 2, we establish that adults can use contrastive inferences to
 learn about a new category's feature distribution. People use adjectives
@@ -237,9 +238,9 @@ relevant feature (e.g., how common it is for tomas to be green). People
 infer that mentioned features are less prevalent than unmentioned ones,
 and do so even when the feature had to be mentioned to establish
 reference. We use a model in the Rational Speech Act (RSA) framework to
-capture people's judgments, finding that their judgments reflect graded
-consideration of both reference and conveying typicality as purposes of
-using an adjective.
+capture people's judgments, finding that their judgments are consistent
+with graded consideration of both reference and conveying typicality as
+purposes of using an adjective.
 
 In Chapter 3, we present a preliminary study of children's own
 contrastive inferences. We test whether children infer that, for
@@ -252,11 +253,11 @@ both to examine whether 5- to 6-year-old children can sensibly report
 typicality on a scale from \emph{few} to \emph{almost all}, and to
 gather preliminary evidence about their contrastive inferences. We find
 that though about half of children in this age range struggle with this
-measure, children who do understand the measure show evidence of
-contrastive inference. We discuss the implications of this kind of
-inference for children's learning given the descriptions they hear from
-caregivers, and the potential unintended consequences of remarking on
-individuals' traits for children's learning.
+measure, children who do understand the measure make judgments in the
+direction of contrastive inference. We discuss the implications of this
+kind of inference for children's learning given the descriptions they
+hear from caregivers, and the potential unintended consequences of
+remarking on individuals' traits for children's learning.
 
 \hypertarget{people-talk-more-about-atypical-than-typical-features-of-things}{%
 \chapter{People talk more about atypical than typical features of
@@ -277,17 +278,19 @@ information from children's direct experience to the information
 available in the language children hear?
 
 Two lines of work suggest that they may be surprisingly similar. One
-compelling area of work is the comparison of semantic structures learned
-by congenitally blind children to those of their sighted peers. In
-several domains that would seem at first blush to rely heavily on visual
+compelling area of work is the comparison of visual semantics learned by
+congenitally blind people to those of their sighted peers. In several
+domains that would seem at first blush to rely heavily on visual
 information, such as verbs of visual perception (e.g., \emph{look},
 \emph{see}), blind children and adults make semantic similarity
 judgments that mirror their sighted peers (Landau, Gleitman, and Landau
-2009; Bedny et al. 2019). A second line of evidence supporting the
-similarity of information in perception and language is the broad
-success of statistical models trained on language alone in approximating
-human judgments across a variety of domains (Landauer and Dumais 1997;
-Mikolov et al. 2013; Devlin et al. 2018). Even more compellingly, models
+2009; Bedny et al. 2019; Kim, Elli, and Bedny 2019).
+
+A second line of evidence supporting the similarity of information in
+perception and language is the broad success of statistical models
+trained on language alone in approximating human judgments across a
+variety of domains (Landauer and Dumais 1997; Mikolov et al. 2013;
+Devlin et al. 2018; Brown et al. 2020). Even more compellingly, models
 trained on both language and perceptual features for some words can
 infer the perceptual features of linguistically related words entirely
 from the covariation of language and perception (Johns and Jones 2012).
@@ -346,10 +349,15 @@ use of description when talking to other adults, and becomes more so as
 children get older.
 
 We then ask whether the co-occurrence structure of language nonetheless
-captures typicality information by testing whether language models
-trained on child-directed speech and adult-directed text capture
-adjective-noun typicality. We find that relatively little typical
-feature information is represented in these semantic spaces.
+captures typicality information by testing whether distributional
+semantics models trained on child-directed speech and adult-directed
+text capture adjective-noun typicality. We find that relatively little
+typical feature information is represented in these semantic spaces. We
+also test whether two more advanced language models, BERT and GPT-3,
+capture typicality, and find that the latter does fairly well. These
+models are unlikely to reflect children's learning mechanisms or
+language input, but tell us what kinds of typicality information are
+learnable from language in principle.
 
 Children's \emph{own} speech offers a window into how children treat
 adjectives: do children choose to remark on atypical features
@@ -506,7 +514,7 @@ was reliably negative, indicating that adjectives tend to refer to
 atypical features of objects (\(\beta =\) -0.85, \(t =\) -28.611, \(p\)
 \textless{} .001). We then re-estimated these models separately for each
 age in the corpus, and found a reliably negative intercept for every age
-group (smallest effect \(\beta_{14} =\) -0.684, \(t =\) -9.063, \(p =\)
+group (smallest effect \(\beta_{14} =\) -0.684, \(t =\) -9.063, \(p\)
 \textless{} .001). Even when talking with very young children, caregiver
 speech is structured according to the kind of communicative pressures
 observed in adult-adult conversation in the lab.
@@ -536,7 +544,7 @@ point out atypical features (as in adult-adult speech), this effect
 changed in strength over development. As predicted, an age effect added
 to the previous model was reliably negative, indicating that parents of
 older children are relatively more likely to focus on atypical features
-(\(\beta =\) -0.071, \(t =\) -3.852, \(p =\) \textless{} .001). In line
+(\(\beta =\) -0.071, \(t =\) -3.852, \(p\) \textless{} .001). In line
 with the idea that caregivers adapt their speech to their children's
 knowledge, it seems that caregivers are more likely to provide
 description of typical features for their young children, compared with
@@ -545,7 +553,7 @@ highly typical if Turkers judged them to be `often', `almost always', or
 `always' true. We predicted whether each judgment was highly typical
 from a mixed-effects logistic regression with a fixed effect of age
 (log-scaled) and a random effect of noun. Age was a highly reliable
-predictor (\(\beta =\) -0.688, \(t =\) -3.78, \(p =\) \textless{} .001).
+predictor (\(\beta =\) -0.688, \(t =\) -3.78, \(p\) \textless{} .001).
 While children at all ages hear more talk about what is atypically true
 (Figure \ref{fig:distribution-plot}), younger children hear relatively
 more talk about what is typically true than older children do (Figure
@@ -620,26 +628,34 @@ non-native college applicants on the Test of English as a Foreign
 Language (Landauer and Dumais 1997). Recently, Lewis, Zettersten, and
 Lupyan (2019) demonstrated that even nuanced feature information may be
 learnable through distributional semantics alone, without any complex
-inferential machinery. We take a similar approach to ask whether a
-distributional semantics model trained on the language children hear can
-capture typical feature information.
+inferential machinery. Further, experiments with adults and children
+suggest that co-occurrence regularities may help structure semantic
+knowledge (Unger, Savic, and Sloutsky 2020; Savic, Unger, and Sloutsky
+2023, 2022). Here, we ask whether a simple distributional semantics
+model trained on the language children hear can capture typical feature
+information. Further, we test whether a distributional semantics model
+trained on a larger corpus of adult-directed text as well as two more
+sophisticated language models capture adjective-noun typicality. These
+models are trained on more and different language than is available to
+children, but tell us more about whether and how typicality information
+is learnable by applying simple learning objectives to text.
 
 \hypertarget{method}{%
 \subsection{Method}\label{method}}
 
-To test this possibility, we trained word2vec--a distributional
-semantics model--on the same corpus of child-directed speech used in our
-first set of analyses. Word2vec is a neural network model that learns to
-predict words from the contexts in which they appear. This leads
-word2vec to encode words that appear in similar contexts as similar to
-one another (Firth 1957).
+To test this possibility, we trained word2vec---a distributional
+semantics model---on the same corpus of child-directed speech used in
+our first set of analyses. Word2vec is a neural network model that
+learns to predict words from the contexts in which they appear. This
+leads word2vec to encode words that appear in similar contexts as
+similar to one another (Firth 1957).
 
 We used the continuous-bag-of-words (CBOW) implementation of word2vec in
 the \texttt{gensim} package (Řehůřek and Sojka 2010). We trained the
 model using a surrounding context of 5 words on either side of the
 target word and 100 dimensions (weights in the hidden layer) to
 represent each word. After training, we extracted the hidden layer
-representation of each word in the model's vocabulary--these are the
+representation of each word in the model's vocabulary---these are the
 vectors used to represent these words.
 
 If the model captures information about the typical features of objects,
@@ -659,23 +675,24 @@ typicalities better. To test this, we asked how BERT (Devlin et al.
 masked language model trained on BookCorpus and English Wikipedia, which
 represents the probability of words occurring in slots in a phrase. We
 gave BERT phrases of the form ``\_\_\_\_ apple'', and asked it the
-probability of different adjectives filling the empty slot. GPT-3 is a
-generative language model trained on large quantities of internet text,
-including Wikipedia, book corpora, and web page text from crawling the
-internet. Because it is a generative language model, we can ask GPT-3
-the same question we asked human participants directly and it can
-generate a text response. We prompted the \texttt{davinci-text-003}
+probability of different adjectives filling the empty slot.
+
+GPT-3 is a generative language model trained on large quantities of
+internet text, including Wikipedia, book corpora, and web page text from
+crawling the internet. Because it is a generative language model, we can
+ask GPT-3 the same question we asked human participants directly and it
+can generate a text response. We prompted the \texttt{davinci-text-003}
 instance of GPT-3 questions of the form: ``You are doing a task in which
 you rate how common it is for certain things to have certain features.
 You respond out of the following options: Never, Rarely, Sometimes,
 About half the time, Often, Almost always, or Always. How common is it
-for a cow to be a brown cow?'' Because BERT and GPT-3 have more complex
-training objectives and are trained on more and different kinds of
-language than what children hear, results from these models likely do
-not straightforwardly represent the information available to children in
-language. However, results from BERT and GPT-3 can indicate the
-challenges language models face in representing world knowledge when the
-language people use emphasizes remarkable rather than typical features.
+for a cow to be a brown cow?'' Because BERT and GPT-3 are trained on
+more and different kinds of language than what children hear, results
+from these models likely do not straightforwardly represent the
+information available to children in language. However, results from
+BERT and GPT-3 can indicate the challenges language models face in
+representing world knowledge when the language people use emphasizes
+remarkable rather than typical features.
 
 \hypertarget{results-1}{%
 \subsection{Results}\label{results-1}}
@@ -701,7 +718,7 @@ we asked whether word vectors trained on a much larger corpus---English
 Wikipedia---correlate with typicality ratings. This model's similarities
 were significantly correlated with human judgments, although the
 strength of the correlation was still fairly weak (\(r =\) 0.338, \(p\)
-\textless{} .001). How larger and more sophisticated language models
+\textless{} .001). How do larger and more sophisticated language models
 fare? Like Wikipedia-trained word2vec, BERT's probabilities were
 significantly correlated with human judgments, though weakly so (\(r =\)
 0.154, \(p\) \textless{} .001). However, GPT-3's ratings were much
@@ -717,10 +734,10 @@ subset of 109 nouns that had both a high-typicality (rated as at least
 adjective. We then asked whether the word2vec models rated the
 high-typicality adjective as more similar to the noun it modified than
 the low-typicality adjective. The LDP model correctly classified 49 out
-of 109 (0.45\%), which was not different from chance (\(p =\) .338). The
+of 109 (0.45), which was not different from chance (\(p =\) .338). The
 Wikipedia-trained word2vec model correctly classified 84 out of 109
-(0.771\%), which was better than chance according to a binomial test,
-but not highly accurate (\(p =\) \textless{} .001). Figure
+(0.771), which was better than chance according to a binomial test,
+though not highly accurate (\(p\) \textless{} .001). Figure
 \ref{fig:halfs} shows the word2vec models' similarities for the 109
 nouns and their typical and atypical adjectives alongside scaled average
 human ratings.
@@ -729,15 +746,15 @@ The analogous analysis on BERT asks whether the model rates the
 high-typicality adjective as more likely to come before the noun than
 the low typicality adjective (e.g., P(``red'') \textgreater{}
 P(``brown'') in ``\_\_\_\_ apple''). BERT correctly classified 66 out of
-109 (0.606\%), which is significantly better than chance (\(p =\) .035).
+109 (0.606), which is significantly better than chance (\(p =\) .035).
 However, BERT's performance was directionally less accurate than
 Wikipedia-trained word2vec: though BERT is a more sophisticated model,
 it does not capture adjective-noun typicality better than word2vec in
 this analysis. GPT-3 performs much better than BERT and the word2vec
-models, with 96 out of 109 (0.881\%), significantly better than chance
-by a binomial test (\(p =\) \textless{} .001). Figure \ref{fig:bert-gpt}
-shows BERT and GPT-3 ratings for the 109 nouns and their typical and
-atypical adjectives alongside scaled average human ratings.
+models, with 96 out of 109 (0.881; \(p\) \textless{} .001). Figure
+\ref{fig:bert-gpt} shows BERT and GPT-3 ratings for the 109 nouns and
+their typical and atypical adjectives alongside scaled average human
+ratings.
 
 \begin{figure}[!tb]
 
@@ -818,11 +835,11 @@ provide young learners with clues to what is typical or atypical, and
 these cues are uncaptured by our measure of usage statistics. Caregivers
 may highlight when a feature is typical by using certain syntactic
 constructions, such as generics (e.g., ``tomatoes are red''). Caregivers
-may also mark the atypicality of a feature, for example demonstrating
-surprise. Such cues from language and the interaction may provide key
-information in some cases; however, given the sheer frequency of
-atypical descriptors, it seems unlikely that they are consistently
-well-marked.
+may also mark the atypicality of a feature using extralinguistic cues,
+e.g., by demonstrating surprise using prosody and facial expressions.
+Such cues from language and interaction may provide key information in
+some cases; however, given the sheer frequency of atypical descriptors,
+it seems unlikely that they are consistently well-marked.
 
 Another possibility is that children expect language to be used
 informatively at a young age. Under this hypothesis, their language
@@ -847,9 +864,9 @@ learners who have limited world knowledge and limited pragmatic
 inferential abilities. Perceptual information and nascent pragmatic
 abilities may help fill in the gaps, but much remains to be explored to
 link these explanations to actual learning. Communication pressures are
-pervasive forces structuring the language children hear, and future work
-must disentangle whether children capitalize on them or are misled by
-them in learning about the world.
+pervasive forces structuring the language children hear, and further
+work can disentangle whether children capitalize on them or are misled
+by them in learning about the world.
 
 \hypertarget{how-adults-use-contrastive-inference-to-learn-about-new-categories}{%
 \chapter{How adults use contrastive inference to learn about new
@@ -1044,20 +1061,21 @@ Our key test is whether participants infer that a mentioned feature is
 less typical than one that is not mentioned. In addition, we tested
 whether inferences of atypicality are modulated by context. One way to
 test this is to analyze the interaction between utterance type and
-context, seeing if the difference between adjective and no adjective
-utterances is larger when the adjective was highly redundant or smaller
-when the adjective was necessary for reference.
+context, seeing if the difference between \emph{noun} and
+\emph{adjective noun} utterances is larger when the adjective was highly
+redundant or smaller when the adjective was necessary for reference.
 
 We analyzed participants' judgments of the prevalence of the target
 object's critical feature in its category. We began by fitting a maximum
-mixed-effects linear model with effects of utterance type (adjective or
-no adjective), context type (within category, between category, or same
-feature, with between category as the reference level), and critical
-feature (color or size) as well as all interactions and random slopes of
-utterance type and context type nested within subject. Random effects
-were removed until the model converged. The final model included the
-effects of utterance type, context type, and critical feature and their
-interactions, and a random slope of utterance type by subject.
+mixed-effects linear model with effects of utterance type (\emph{noun}
+or \emph{adjective noun}), context type (within category, between
+category, or same feature, with between category as the reference
+level), and critical feature (color or size) as well as all interactions
+and random slopes of utterance type and context type nested within
+subject. Random effects were removed until the model converged. The
+final model included the effects of utterance type, context type, and
+critical feature and their interactions, and a random slope of utterance
+type by subject.
 
 This model revealed a significant effect of utterance type
 (\(\beta_{adjective} =\) -10.22, \(t =\) -3.374, \(p =\) .001), such
@@ -1410,22 +1428,32 @@ when the feature goes unmentioned. It also shows that the possibility
 that people may discount their typicality judgments based on context
 (suggested by the marginal interaction described above) is not supported
 when we compare the adjective and no adjective utterance types directly.
-In the Supplemental Materials, we report two more pre-registered tests
-of the effect of utterance type alone on prevalence judgments whose
-results are consistent with the fuller models reported here.
 
 As in Experiment 1, our test of whether participants' inferences are
 modulated by context is potentially complicated by people making
 distinct inferences when an adjective is necessary but \emph{not} used.
 Thus, we additionally tested whether participants' inferences varied by
-context among only utterances with an adjective by fitting a model with
-effects of context and adjective type and their interaction, as well as
+context among only \emph{noun} trials and only \emph{adjective noun}
+trials, separately. Testing only \emph{noun} trials checks directly
+whether people make higher typicality judgments when an adjective is
+necessary but not used, compared to when it is not necessary and not
+used. To check this, we fit a model on only \emph{noun} trials, with
+effects of context and feature type and their interaction, as well as
 random slopes by subject (not pre-registered). Participants' inferences
-did not significantly differ by context (\(\beta_{within} =\) 3.068,
-\(t_{within} =\) 1.696, \(p_{within} =\) .091). Thus, participants'
-inferences did not significantly differ between contexts, whether tested
-by the interaction between utterance type and contexts or by the effect
-of context among only utterances with an adjective.
+among only \emph{noun} trials did not significantly differ by context
+(\(\beta_{within} =\) 0.087, \(t_{within} =\) 0.046, \(p_{within} =\)
+.964). In the same way, we tested whether people's inferences varied by
+context among only \emph{adjective noun} trials: this is a test of
+context effects that could not have been caused (or masked) by people's
+inferences about adjective omission. Participants' inferences among only
+\emph{adjective noun} trials did not significantly differ by context
+(\(\beta_{within} =\) 3.068, \(t_{within} =\) 1.696, \(p_{within} =\)
+.091). Numerically, people's prevalence judgments were slightly higher
+in the within-category context, but these effects were not significant.
+Thus, participants' inferences did not significantly differ between
+contexts, whether tested by the interaction between utterance type and
+contexts or by the effect of context among only utterances with or
+without an adjective.
 
 \begin{figure}[!tb]
 
@@ -1433,7 +1461,7 @@ of context among only utterances with an adjective.
 
 }
 
-\caption{Participants' prevalence judgments in Experiment 2, with model predictions using the parameters estimated in Experiment 1 (horizontal lines).}\label{fig:e3-wppl-plot}
+\caption{Participants' prevalence judgments in Experiment 2, with model predictions using the parameters estimated in Experiment 1. Points indicate empirical means; error bars indicate 95\% confidence intervals computed by non-parametric bootstrapping. Solid horizontal lines indicate model predictions.}\label{fig:e3-wppl-plot}
 \end{figure}
 
 \hypertarget{model-1}{%
@@ -1499,8 +1527,80 @@ when an object is referred to without description suggests that, in some
 sense, there is no neutral way to refer: people will make broader
 inferences about a category from even simple mentions of an object.
 
-\hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
+\hypertarget{general-discussion-1}{%
+\section{General Discussion}\label{general-discussion-1}}
+
+When we think about what someone is trying to communicate to us, we go
+far beyond the literal meanings of the words they say: we make pragmatic
+inferences about why they chose those particular words rather than other
+words they could have used instead. In most work on pragmatic reasoning,
+speakers and listeners share the same knowledge of language, and the
+question of interest is whether listeners can use their knowledge of
+language to learn something about the unknown state of the world. Here
+we focus on an even more challenging problem: Can pragmatic inference be
+used to learn about language and the world simultaneously?
+
+In two experiments, we showed that people infer that a noted feature is
+atypical of the object being referred to. Critically, people infer that
+the described feature is atypical even when the descriptor is helpful
+for referential disambiguation. Why do people think that the mentioned
+feature is atypical even when its mention is helpful for referential
+disambiguation? If people use language for multiple goals---for example,
+both for reference and for description---then listeners should reason
+jointly about all of the possible reasons why speakers could have used a
+word. To determine what rational listeners would do in this
+circumstance, we developed an extension of the Rational Speech Act
+Framework that reasons both about reference and about the typical
+features of categories to which objects belong. The behavior of this
+model was closely aligned to the behavior we observed in people. Because
+rational inference is probabilistic rather than deterministic, the
+trade-off in the model is slight: descriptors still lead to atypicality
+inferences even when they are helpful for referential disambiguation.
+This work thus adds to the growing body of work extending the Rational
+Speech Act framework from reasoning about just reference to reasoning
+about other goals as well, such as inferring that speech is hyperbolic,
+inferring when speakers are being polite rather than truthful, and
+learning new words in ambiguous contexts (Goodman and Frank 2016; Yoon
+et al. 2020; Kao et al. 2014; Frank and Goodman 2014; Bohn et al. 2021,
+2022).
+
+In considering how people may integrate inferences about typicality and
+about reference, we raised two broad possibilities: (1) a
+\emph{reference-first view}, whereby if an adjective was necessary for
+reference it would block an inference of atypicality completely, and (2)
+a \emph{probabilistic weighing view}, whereby the goals of being
+informative with respect to reference and with respect to the category
+would trade off in a graded way. That is, we aimed to test whether there
+was a strong trade-off or a weak trade-off. People's behavior in our
+tasks is inconsistent with the reference-first view: inferences of
+atypicality were not blocked when an adjective was necessary for
+reference. On the other hand, our model implements the latter view and
+fits the data well, but we do not find significant evidence of a
+trade-off in our statistical tests of people's responses: the data are
+also compatible with there being no trade-off whatsoever.
+
+Our experiments use a particular kind of task context: alien fruits,
+spoken about by alien interlocutors. Would these effects generalize
+beyond these particular items, and this particular task? It is possible
+that people hold expectations about how the features of fruit are
+distributed---for instance, that they have stereotypical colors. These
+overhypotheses about how basic-level categories' features are
+distributed within a superordinate category (Kemp, Perfors, and
+Tenenbaum 2007) may make people's inferences about fruit different from
+their inferences about other superordinate categories. More broadly,
+people may make different kinds of inferences in more naturalistic
+communicative settings. In our task, people were asked to make several
+typicality judgments, which may have encouraged them to focus on how the
+aliens' utterances could help them learn about the world rather than
+focusing on other communicative goals such as reference. It is possible
+that people's inferences would reflect a clear tradeoff between
+reference and communicating atypicality if reference was a more salient
+communicative goal in the task. Further, it may be easier to attribute
+nuanced communicative goals to \emph{people} talking about plausibly
+real things, rather than to alien characters. So, though we find people
+do use pragmatic inferences to learn about new categories in these
+artificial tasks, these inferences may play out differently in more
+naturalistic contexts with more communicative goals plausibly in play.
 
 In Chapter 1, we established that people tend to mention atypical rather
 than typical features. In this chapter, we showed that adults make
@@ -1768,16 +1868,16 @@ feature type were not significant (\(\beta_{pattern} =\) -0.467, \(t =\)
 (\(\beta_{adjective-noun*pattern} =\) 0.867, \(t =\) 1.66, \(p =\)
 0.101; \(\beta_{adjective-noun*size} =\) 0.933, \(t =\) 1.787, \(p =\)
 0.078). The utterance effect is also directionally present across all
-three feature conditions. Children who performed correctly on familiar
-trials judged mentioned features to be less typical (Figure
-\ref{fig:kid-results-measure}).
+three feature conditions. The small sample of children who performed
+correctly on familiar trials judged mentioned features to be less
+typical (Figure \ref{fig:kid-results-measure}).
 
 \hypertarget{discussion-3}{%
 \section{Discussion}\label{discussion-3}}
 
-In this chapter, we ask how children develop the inference that that
-when a feature of a novel category is mentioned, that feature is likely
-to be atypical of the category. One possibility is that children simply
+In this chapter, we asked how children develop the inference that when a
+feature of a novel category is mentioned, that feature is likely to be
+atypical of the category. One possibility is that children simply
 associate the words, features and categories that are salient in an
 instance of reference. This would lead children to think a mentioned
 feature is representative or typical of the mentioned category. Another
@@ -1785,17 +1885,17 @@ possibility is that children make the kind of contrastive inference
 adults make, inferring that the mentioned feature is atypical. In an
 exploratory study, we found suggestive evidence that 5--6-year-old
 children are not making an associative inference, and are directionally
-making a contrastive inference about mentioned features. Further,
-children who performed correctly on practice trials with familiar
-objects made significantly lower typicality judgments about mentioned
-features. However, judging typicality is difficult for young children,
-and participants struggled with our measure overall. Evidence from this
-task is only preliminary, and calls for confirmatory tests with larger
-sample sizes and for the development of measures that are more sensible
-for young children.
+making a contrastive inference about mentioned features. Further, the
+small sample of children who performed correctly on practice trials with
+familiar objects made significantly lower typicality judgments about
+mentioned features. However, judging typicality is difficult for young
+children, and participants struggled with our measure overall. Evidence
+from this task is only preliminary, and calls for confirmatory tests
+with larger sample sizes and for the development of measures that are
+more sensible for young children.
 
-\hypertarget{conclusion-1}{%
-\chapter*{Conclusion}\label{conclusion-1}}
+\hypertarget{conclusion}{%
+\chapter*{Conclusion}\label{conclusion}}
 \addcontentsline{toc}{chapter}{Conclusion}
 
 This dissertation examines how speakers selectively describe remarkable
@@ -1844,9 +1944,9 @@ between the typical and atypical features of nouns, with implications
 both for associative accounts of children's language learning and for
 language modeling. However, a large language model with a more complex
 architecture and access to more and different language input than
-children receive was able to capture adjective-noun typicality fairly
-well. Overall, our findings highlight the complexity of learning about
-the world from language that describes it selectively.
+children receive---GPT-3---was able to capture adjective-noun typicality
+fairly well. Overall, our findings highlight the complexity of learning
+about the world from language that describes it selectively.
 
 However, perhaps people---unlike simpler associative language
 models---know that language is used to selectively remark on the world,
@@ -1865,10 +1965,11 @@ goal of description (Sedivy 2003; Mitchell, Reiter, and Deemter 2013;
 Westerbeek, Koolen, and Maes 2015; Rubio-Fernández 2016). Our findings
 emphasize that conveying typicality is likely a central factor in
 referring, and inferences about typicality are not secondary to or
-blocked by the purpose of establishing reference. Further, pragmatics is
-generally conceived of as a layer of meaning that only emerges on top of
-a more stable semantics; these studies underscore that when semantic
-meaning is uncertain, people can use pragmatics to resolve it.
+blocked by the purpose of establishing reference. Further, though
+pragmatics is generally conceived of as a layer of meaning that only
+emerges on top of a more stable semantics, our findings demonstrate the
+reverse: when semantic meaning is uncertain, people can use pragmatics
+to resolve it.
 
 The ability to exploit description to learn more about the world than
 one has observed directly is most useful to people who are still rapidly
@@ -1877,14 +1978,14 @@ children make contrastive inferences about typicality. The results of
 our preliminary experiment show that it is difficult to elicit graded
 typicality judgments from children. However, children who understand our
 typicality measure do not make associative inferences in this task;
-rather, we find weak, preliminary evidence that these children make
-contrastive inferences. Taken together with evidence from our corpus
-analysis, this preliminary study suggests that by the age of 5 or 6
-children are \emph{not} making associative inferences about the atypical
-adjective-noun pairs they hear, and may be making contrastive inferences
-instead. However, further work with better measures is necessary to
-confirm this finding and examine how younger children interpret the
-description they hear.
+rather, we find preliminary evidence that these children directionally
+make contrastive inferences. Taken together with evidence from our
+corpus analysis, this preliminary study suggests that by the age of 5 or
+6 children are \emph{not} making associative inferences about the
+atypical adjective-noun pairs they hear, and may be making contrastive
+inferences instead. However, further work with better measures is
+necessary to confirm this finding and examine how younger children
+interpret the description they hear.
 
 The core computation in pragmatic inference is reasoning about
 alternatives---things the speaker could have said and did not. Given
@@ -1958,6 +2059,18 @@ Individuals.'' \emph{Cognition} 189: 105--15.
 Bergey, Claire, Benjamin Morris, and Daniel Yurovsky. 2020. ``Children
 Hear More About What Is Atypical Than What Is Typical.'' PsyArXiv.
 \url{https://doi.org/10.31234/osf.io/5wvu8}.
+
+\leavevmode\hypertarget{ref-bohn_predicting_2022}{}%
+Bohn, Manuel, Michael Henry Tessler, Megan Merrick, and Michael C.
+Frank. 2022. ``Predicting Pragmatic Cue Integration in Adults' and
+Children's Inferences About Novel Word Meanings.'' \emph{Journal of
+Experimental Psychology: General} 151: 2927--42.
+\url{https://doi.org/10.1037/xge0001216}.
+
+\leavevmode\hypertarget{ref-bohn_how_2021}{}%
+---------. 2021. ``How Young Children Integrate Information Sources to
+Infer the Meaning of Words.'' \emph{Nature Human Behaviour} 5 (8):
+1046--54. \url{https://doi.org/10.1038/s41562-021-01145-1}.
 
 \leavevmode\hypertarget{ref-bott_utterances_2004}{}%
 Bott, Lewis, and Ira A. Noveck. 2004. ``Some Utterances Are
@@ -2066,6 +2179,11 @@ Evidence About Language and Cognitive Development Based on a
 Longitudinal Study: Hypotheses for Intervention.'' \emph{American
 Psychologist} 69 (6): 588.
 
+\leavevmode\hypertarget{ref-goodman2016}{}%
+Goodman, Noah D, and Michael C Frank. 2016. ``Pragmatic Language
+Interpretation as Probabilistic Inference.'' \emph{Trends in Cognitive
+Sciences} 20 (11): 818--29.
+
 \leavevmode\hypertarget{ref-grice1975logic}{}%
 Grice, H Paul. 1975. ``Logic and Conversation.'' \emph{1975}, 41--58.
 
@@ -2100,11 +2218,28 @@ Kanwisher, Nancy, Roger P. Woods, Marco Iacoboni, and John C. Mazziotta.
 1997. ``A Locus in Human Extrastriate Cortex for Visual Shape
 Analysis.'' \emph{Journal of Cognitive Neuroscience} 9 (1): 133--42.
 
+\leavevmode\hypertarget{ref-kao2014}{}%
+Kao, Justine T, Jean Y Wu, Leon Bergen, and Noah D Goodman. 2014.
+``Nonliteral Understanding of Number Words.'' \emph{Proceedings of the
+National Academy of Sciences} 111 (33): 12002--7.
+
+\leavevmode\hypertarget{ref-kemp_learning_2007}{}%
+Kemp, Charles, Andrew Perfors, and Joshua B. Tenenbaum. 2007. ``Learning
+Overhypotheses with Hierarchical Bayesian Models.'' \emph{Developmental
+Science} 10 (3): 307--21.
+\url{https://doi.org/10.1111/j.1467-7687.2007.00585.x}.
+
 \leavevmode\hypertarget{ref-kennedy_vagueness_2007}{}%
 Kennedy, Christopher. 2007. ``Vagueness and Grammar: The Semantics of
 Relative and Absolute Gradable Adjectives.'' \emph{Linguistics and
 Philosophy} 30 (1): 1--45.
 \url{https://doi.org/10.1007/s10988-006-9008-0}.
+
+\leavevmode\hypertarget{ref-kim_knowledge_2019}{}%
+Kim, Judy S., Giulia V. Elli, and Marina Bedny. 2019. ``Knowledge of
+Animal Appearance Among Sighted and Blind Adults.'' \emph{Proceedings of
+the National Academy of Sciences} 116 (23): 11213--22.
+\url{https://doi.org/10.1073/pnas.1900952116}.
 
 \leavevmode\hypertarget{ref-landau2009}{}%
 Landau, Barbara, Lila R Gleitman, and Barbara Landau. 2009.
@@ -2197,6 +2332,19 @@ Modelling with Large Corpora.'' In \emph{Proceedings of the LREC 2010
 Workshop on New Challenges for NLP Frameworks}, 45--50. Valletta, Malta:
 ELRA.
 
+\leavevmode\hypertarget{ref-savic_exposure_2022}{}%
+Savic, Olivera, Layla Unger, and Vladimir M. Sloutsky. 2022. ``Exposure
+to Co-Occurrence Regularities in Language Drives Semantic Integration of
+New Words.'' \emph{Journal of Experimental Psychology: Learning, Memory,
+and Cognition} 48 (7): 1064--81.
+\url{https://doi.org/10.1037/xlm0001122}.
+
+\leavevmode\hypertarget{ref-savic_experience_2023}{}%
+---------. 2023. ``Experience and Maturation: The Contribution of
+Co-Occurrence Regularities in Language to the Development of Semantic
+Organization.'' \emph{Child Development} 94 (1): 142--58.
+\url{https://doi.org/10.1111/cdev.13844}.
+
 \leavevmode\hypertarget{ref-sedivy_pragmatic_2003}{}%
 Sedivy, Julie C. 2003. ``Pragmatic Versus Form-Based Accounts of
 Referential Contrast: Evidence for Effects of Informativity
@@ -2233,6 +2381,12 @@ Class Inference.'' \emph{Proceedings of the Annual Conference of the
 Cognitive Science Society}, January.
 \url{https://par.nsf.gov/biblio/10159025-informational-goals-sentence-structure-comparison-class-inference}.
 
+\leavevmode\hypertarget{ref-unger_statistical_2020}{}%
+Unger, Layla, Olivera Savic, and Vladimir M. Sloutsky. 2020.
+``Statistical Regularities Shape Semantic Organization Throughout
+Development.'' \emph{Cognition} 198 (May): 104190.
+\url{https://doi.org/10.1016/j.cognition.2020.104190}.
+
 \leavevmode\hypertarget{ref-westerbeek2015}{}%
 Westerbeek, Hans, Ruud Koolen, and Alfons Maes. 2015. ``Stored Object
 Knowledge and the Production of Referring Expressions: The Case of Color
@@ -2252,6 +2406,11 @@ Adjectives.'' \emph{Semantics and Pragmatics} 15 (September):
 \leavevmode\hypertarget{ref-xu2007}{}%
 Xu, Fei, and Joshua B Tenenbaum. 2007. ``Word Learning as Bayesian
 Inference.'' \emph{Psychological Review} 114 (2): 245.
+
+\leavevmode\hypertarget{ref-yoon2020}{}%
+Yoon, Erica J, Michael Henry Tessler, Noah D Goodman, and Michael C
+Frank. 2020. ``Polite Speech Emerges from Competing Social Goals.''
+\emph{Open Mind} 4: 71--87.
 
 \leavevmode\hypertarget{ref-yu2007}{}%
 Yu, Chen, and Linda B Smith. 2007. ``Rapid Word Learning Under
